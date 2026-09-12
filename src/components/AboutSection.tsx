@@ -44,7 +44,7 @@ export default function AboutSection() {
         >
           {/* Left Column: Dedicated Compact Video Feature */}
           <div className="w-full max-w-xs md:w-1/3 shrink-0 mx-auto md:mx-0">
-            <div className="w-full rounded-[2rem] overflow-hidden shadow-2xl shadow-brand-dark/10 border-[6px] border-white relative aspect-[4/5] bg-brand-cream/50 transform md:-rotate-2 hover:rotate-0 transition-transform duration-500">
+            <div className="w-full rounded-[1rem] overflow-hidden shadow-2xl shadow-brand-dark/10 border-[6px] border-white relative aspect-[4/5] bg-brand-cream/50">
               <video
                 autoPlay
                 muted
