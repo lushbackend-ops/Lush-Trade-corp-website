@@ -42,12 +42,12 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: 'Lush Trade Corp Tanzania Limited' }],
   alternates: {
-    canonical: 'https://lushtradecorp.com',
+    canonical: 'https://www.lushtradecorp.com',
   },
   openGraph: {
     title: 'Lush Trade Corp | Tanzania Export & Import Company',
     description: 'Lush Trade Corp Tanzania Limited connects African producers with global buyers through premium cashews, agro-commodities, coffee, pulses, timber and international sourcing.',
-    url: 'https://lushtradecorp.com',
+    url: 'https://www.lushtradecorp.com',
     siteName: 'Lush Trade Corp',
     images: [
       {
@@ -89,7 +89,7 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Organization",
               "name": "Lush Trade Corp Tanzania Limited",
-              "url": "https://lushtradecorp.com",
+              "url": "https://www.lushtradecorp.com",
               "email": "lushtradecorp@gmail.com",
               "telephone": "+255639354286",
               "address": {

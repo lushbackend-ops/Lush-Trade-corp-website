@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: '/',
     },
-    sitemap: 'https://lushtradecorp.com/sitemap.xml',
+    sitemap: 'https://www.lushtradecorp.com/sitemap.xml',
   };
 }
