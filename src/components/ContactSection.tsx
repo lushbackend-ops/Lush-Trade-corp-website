@@ -23,8 +23,8 @@ export default function ContactSection() {
   const socialLinks = [
     { name: 'LinkedIn', icon: Linkedin, href: 'https://linkedin.com' },
     { name: 'Instagram', icon: Instagram, href: 'https://www.instagram.com/lush.trade.corp/' },
-    { name: 'Facebook', icon: Facebook, href: 'https://facebook.com' },
-    { name: 'YouTube', icon: Youtube, href: 'https://youtube.com' },
+    { name: 'Facebook', icon: Facebook, href: 'https://www.facebook.com/profile.php?id=61594566767273' },
+    { name: 'YouTube', icon: Youtube, href: 'https://www.youtube.com/@LushTradeCorp' },
   ];
 
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
