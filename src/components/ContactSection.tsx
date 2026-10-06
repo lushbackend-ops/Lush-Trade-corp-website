@@ -30,42 +30,39 @@ export default function ContactSection() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwHXsVaRtyJKAqJRYW-z33YpobepDtKqxjAYzZrSUxWTsf8-UpDeIo69qn5p6oFYlGg/exec';
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setErrorMessage(null);
 
-    try {
-      // Direct submission to Google Apps Script (100% compatible with static export & Render static sites)
-      await fetch(SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: {
-          'Content-Type': 'text/plain;charset=utf-8',
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone || 'N/A',
-          product: formData.product,
-          message: formData.message,
-          recipient: 'lush.backend@gmail.com',
-        }),
-      });
+    // Fire and forget for instant UX (Google Scripts can take 2-3s to respond)
+    fetch(SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {
+        'Content-Type': 'text/plain;charset=utf-8',
+      },
+      body: JSON.stringify({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone || 'N/A',
+        product: formData.product,
+        message: formData.message,
+        recipient: 'lush.backend@gmail.com',
+      }),
+    }).catch(() => {
+      // Silently fail or log in background
+    });
 
-      setSubmitted(true);
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        product: 'RAW CASHEW NUTS (RCN)',
-        message: '',
-      });
-    } catch {
-      setErrorMessage('Network error. Please reach out via WhatsApp or phone.');
-    } finally {
-      setIsSubmitting(false);
-    }
+    setSubmitted(true);
+    setFormData({
+      name: '',
+      email: '',
+      phone: '',
+      product: 'RAW CASHEW NUTS (RCN)',
+      message: '',
+    });
+    setIsSubmitting(false);
   };
 
   return (
@@ -291,11 +288,15 @@ export default function ContactSection() {
                         onChange={(e) => setFormData({ ...formData, product: e.target.value })}
                         className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-900 text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-leaf transition-all"
                       >
-                        <option value="RAW CASHEW NUTS (RCN)">RAW CASHEW NUTS (RCN)</option>
-                        <option value="CASHEW NUT KERNELS">CASHEW NUT KERNELS</option>
-                        <option value="PULSES">PULSES (Chickpeas, Pigeon Peas, Kidney Beans, Green Mung Beans)</option>
-                        <option value="COFFEE">COFFEE (Arabica & Robusta)</option>
-                        <option value="TIMBER">TIMBER (Teak Wood & Pine Wood)</option>
+                        <option value="Raw Cashew Nuts (RCN)">Raw Cashew Nuts (RCN)</option>
+                        <option value="Cashew Nut Kernels (White)">Cashew Nut Kernels (White)</option>
+                        <option value="Borma Kernels">Borma Kernels</option>
+                        <option value="Coffee (Arabica & Robusta)">Coffee (Arabica & Robusta)</option>
+                        <option value="Pigeon Peas">Pigeon Peas</option>
+                        <option value="Chickpeas">Chickpeas</option>
+                        <option value="Sesame Seeds">Sesame Seeds</option>
+                        <option value="Pine Timber">Pine Timber</option>
+                        <option value="Teak Timber">Teak Timber</option>
                       </select>
                     </div>
                   </div>

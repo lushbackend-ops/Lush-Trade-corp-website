@@ -2,8 +2,9 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Bot } from 'lucide-react';
 
-type MessageType = 'text' | 'options' | 'typing';
+type MessageType = 'text' | 'options' | 'typing' | 'form';
 
 interface Message {
   id: string;
@@ -15,14 +16,12 @@ interface Message {
 }
 
 // Simulated conversation graph
-const CONVERSATION_GRAPH: Record<string, { text: string; options?: Array<{ label: string; action: string }> }> = {
+const CONVERSATION_GRAPH: Record<string, { text: string; options?: Array<{ label: string; action: string; payload?: string }>; isForm?: boolean }> = {
   main: {
     text: "Welcome to Lush Trade Corp! I'm your digital assistant. How can I help you streamline your global sourcing today?",
     options: [
       { label: "Explore Products", action: "explore_products" },
-      { label: "Logistics & Shipping", action: "logistics" },
-      { label: "Sustainability Focus", action: "sustainability" },
-      { label: "Request a Quote", action: "quote_start" },
+      { label: "Request a Quote", action: "quote_form" },
       { label: "Contact Us", action: "contact" }
     ]
   },
@@ -31,44 +30,127 @@ const CONVERSATION_GRAPH: Record<string, { text: string; options?: Array<{ label
     options: [
       { label: "Cashew Nuts", action: "prod_cashew" },
       { label: "Coffee", action: "prod_coffee" },
+      { label: "Pulses", action: "prod_pulses" },
       { label: "Timber", action: "prod_timber" },
       { label: "Main Menu", action: "main" }
     ]
   },
   prod_cashew: {
-    text: "We offer premium Raw Cashew Nuts and processed kernels sourced directly from Tanzanian farmers, ensuring top-tier quality and traceability.",
-    options: [{ label: "Request Quote for Cashews", action: "quote_start" }, { label: "Other Products", action: "explore_products" }]
+    text: "We offer premium Cashew varieties. Please select your interest:",
+    options: [
+      { label: "Raw Cashew Nuts (RCN)", action: "quote_form", payload: "Raw Cashew Nuts (RCN)" },
+      { label: "Cashew Nut Kernels (White)", action: "quote_form", payload: "Cashew Nut Kernels (White)" },
+      { label: "Borma Kernels", action: "quote_form", payload: "Borma Kernels" },
+      { label: "Back to Products", action: "explore_products" }
+    ]
   },
   prod_coffee: {
-    text: "Our Tanzanian Arabica and Robusta coffee beans are ethically sourced, providing rich, distinct flavor profiles for global roasters.",
-    options: [{ label: "Request Quote for Coffee", action: "quote_start" }, { label: "Other Products", action: "explore_products" }]
+    text: "Our Tanzanian Arabica and Robusta coffee beans are ethically sourced, providing rich flavor profiles.",
+    options: [
+      { label: "Request Quote for Coffee", action: "quote_form", payload: "Coffee (Arabica & Robusta)" },
+      { label: "Back to Products", action: "explore_products" }
+    ]
+  },
+  prod_pulses: {
+    text: "We supply a variety of high-quality pulses:",
+    options: [
+      { label: "Pigeon Peas", action: "quote_form", payload: "Pigeon Peas" },
+      { label: "Chickpeas", action: "quote_form", payload: "Chickpeas" },
+      { label: "Sesame Seeds", action: "quote_form", payload: "Sesame Seeds" },
+      { label: "Back to Products", action: "explore_products" }
+    ]
   },
   prod_timber: {
     text: "We export sustainably harvested timber, compliant with international forestry standards.",
-    options: [{ label: "Other Products", action: "explore_products" }, { label: "Main Menu", action: "main" }]
-  },
-  logistics: {
-    text: "We handle end-to-end logistics from Mtwara and Dar es Salaam ports to global destinations, handling customs clearance, freight forwarding, and securing phytosanitary certifications.",
-    options: [{ label: "Main Menu", action: "main" }]
-  },
-  sustainability: {
-    text: "Sustainability is at our core. We work directly with local cooperatives to ensure fair trade practices, reduce carbon footprints, and promote regenerative agriculture.",
-    options: [{ label: "Main Menu", action: "main" }]
+    options: [
+      { label: "Pine Timber", action: "quote_form", payload: "Pine Timber" },
+      { label: "Teak Timber", action: "quote_form", payload: "Teak Timber" },
+      { label: "Back to Products", action: "explore_products" }
+    ]
   },
   contact: {
     text: "Email us at lushtradecorp@gmail.com or call +255 639 354 286. Our headquarters is located near Nangwanda Stadium in Mtwara, Tanzania.",
     options: [{ label: "Main Menu", action: "main" }]
   },
-  quote_start: {
-    text: "Great! Our team will provide a tailored quote. Please email your specific requirements (Product, Volume, Destination) to lushtradecorp@gmail.com.",
+  quote_form: {
+    text: "Please fill out your details below to request a quote.",
+    isForm: true
+  },
+  quote_success: {
+    text: "Thank you! We have received your inquiry and our team will get back to you shortly.",
     options: [{ label: "Main Menu", action: "main" }]
   }
+};
+
+const ChatForm = ({ onComplete, initialProduct }: { onComplete: () => void; initialProduct: string }) => {
+  const [formData, setFormData] = useState({ name: '', email: '', phone: '', product: initialProduct, message: '' });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+
+  // Update formData if initialProduct changes
+  useEffect(() => {
+    setFormData(prev => ({ ...prev, product: initialProduct }));
+  }, [initialProduct]);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    // Fire and forget for instant UX (Google Scripts can take 2-3s to respond)
+    fetch('https://script.google.com/macros/s/AKfycbwHXsVaRtyJKAqJRYW-z33YpobepDtKqxjAYzZrSUxWTsf8-UpDeIo69qn5p6oFYlGg/exec', {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({
+        ...formData,
+        phone: formData.phone || 'N/A',
+        recipient: 'lush.backend@gmail.com'
+      }),
+    }).catch(() => {
+      // Silently fail or log in background
+    });
+
+    setSubmitted(true);
+    setTimeout(onComplete, 1500);
+  };
+
+  if (submitted) {
+    return (
+      <div className="mt-2 p-3 bg-green-50 text-green-700 text-sm font-semibold rounded-xl border border-green-200 text-center">
+        Quote Request Sent Successfully!
+      </div>
+    );
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="flex flex-col gap-2.5 mt-2 p-4 bg-white border border-gray-200 rounded-xl w-full shadow-sm">
+      <input required placeholder="Your Name *" className="p-2.5 text-sm border border-gray-200 rounded-lg bg-gray-50 text-gray-800 focus:outline-none focus:border-brand-gold" onChange={e => setFormData({...formData, name: e.target.value})} />
+      <input required type="email" placeholder="Your Email *" className="p-2.5 text-sm border border-gray-200 rounded-lg bg-gray-50 text-gray-800 focus:outline-none focus:border-brand-gold" onChange={e => setFormData({...formData, email: e.target.value})} />
+      <input placeholder="Phone / WhatsApp" className="p-2.5 text-sm border border-gray-200 rounded-lg bg-gray-50 text-gray-800 focus:outline-none focus:border-brand-gold" onChange={e => setFormData({...formData, phone: e.target.value})} />
+      <select value={formData.product} className="p-2.5 text-sm border border-gray-200 rounded-lg bg-gray-50 text-gray-800 focus:outline-none focus:border-brand-gold" onChange={e => setFormData({...formData, product: e.target.value})}>
+        <option value="Raw Cashew Nuts (RCN)">Raw Cashew Nuts (RCN)</option>
+        <option value="Cashew Nut Kernels (White)">Cashew Nut Kernels (White)</option>
+        <option value="Borma Kernels">Borma Kernels</option>
+        <option value="Coffee (Arabica & Robusta)">Coffee (Arabica & Robusta)</option>
+        <option value="Pigeon Peas">Pigeon Peas</option>
+        <option value="Chickpeas">Chickpeas</option>
+        <option value="Sesame Seeds">Sesame Seeds</option>
+        <option value="Pine Timber">Pine Timber</option>
+        <option value="Teak Timber">Teak Timber</option>
+      </select>
+      <textarea required placeholder="Requirements / Specifications *" className="p-2.5 text-sm border border-gray-200 rounded-lg bg-gray-50 text-gray-800 resize-none focus:outline-none focus:border-brand-gold" rows={2} onChange={e => setFormData({...formData, message: e.target.value})} />
+      <button type="submit" disabled={isSubmitting} className="mt-1 w-full py-2.5 rounded-lg font-bold text-brand-dark bg-brand-gold hover:bg-brand-goldLight transition-colors disabled:opacity-50 text-sm">
+        {isSubmitting ? 'Sending...' : 'Submit Request'}
+      </button>
+    </form>
+  );
 };
 
 export default function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [isTyping, setIsTyping] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState('Raw Cashew Nuts (RCN)');
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   // Initialize chat
@@ -107,9 +189,18 @@ export default function Chatbot() {
         }
       ];
 
-      if (node.options) {
+      if (node.isForm) {
         newMsgs.push({
           id: (Date.now() + 1).toString(),
+          sender: 'bot',
+          type: 'form',
+          timestamp: new Date()
+        });
+      }
+
+      if (node.options) {
+        newMsgs.push({
+          id: (Date.now() + 2).toString(),
           sender: 'bot',
           type: 'options',
           options: node.options,
@@ -122,7 +213,10 @@ export default function Chatbot() {
     }, delay);
   };
 
-  const handleAction = (label: string, action: string) => {
+  const handleAction = (label: string, action: string, payload?: string) => {
+    if (payload) {
+      setSelectedProduct(payload);
+    }
     // Add user message
     const userMsg: Message = {
       id: Date.now().toString(),
@@ -167,7 +261,7 @@ export default function Chatbot() {
               <div className="relative z-10 flex items-center gap-3">
                 <div className="relative">
                   <div className="w-10 h-10 bg-brand-gold rounded-full flex items-center justify-center text-brand-dark font-bold font-heading">
-                    LT
+                    <Bot className="w-6 h-6" />
                   </div>
                   <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-brand-dark rounded-full"></div>
                 </div>
@@ -213,6 +307,12 @@ export default function Chatbot() {
                     </div>
                   )}
 
+                  {msg.type === 'form' && (
+                    <div className="w-full max-w-[95%]">
+                      <ChatForm initialProduct={selectedProduct} onComplete={() => appendBotResponse('quote_success')} />
+                    </div>
+                  )}
+
                   {msg.type === 'options' && msg.options && (
                     <div className="mt-2 flex flex-col gap-2 w-full max-w-[90%]">
                       {msg.options.map((opt, idx) => (
@@ -220,7 +320,7 @@ export default function Chatbot() {
                           whileHover={{ scale: 1.02 }}
                           whileTap={{ scale: 0.98 }}
                           key={idx}
-                          onClick={() => handleAction(opt.label, opt.action)}
+                          onClick={() => handleAction(opt.label, opt.action, opt.payload)}
                           className="w-full text-left text-sm bg-white hover:bg-brand-gold/10 text-brand-dark border border-brand-gold/40 rounded-xl px-4 py-3 transition-colors flex justify-between items-center shadow-sm font-medium"
                         >
                           <span>{opt.label}</span>
@@ -286,3 +386,4 @@ export default function Chatbot() {
     </div>
   );
 }
+
