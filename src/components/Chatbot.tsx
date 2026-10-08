@@ -83,7 +83,7 @@ const CONVERSATION_GRAPH: Record<string, { text: string; options?: Array<{ label
 };
 
 const ChatForm = ({ onComplete, initialProduct }: { onComplete: () => void; initialProduct: string }) => {
-  const [formData, setFormData] = useState({ name: '', email: '', phone: '', product: initialProduct, message: '' });
+  const [formData, setFormData] = useState({ name: '', email: '', phoneCode: '+', phone: '', product: initialProduct, message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
@@ -103,7 +103,7 @@ const ChatForm = ({ onComplete, initialProduct }: { onComplete: () => void; init
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
       body: JSON.stringify({
         ...formData,
-        phone: formData.phone || 'N/A',
+        phone: (formData.phoneCode && formData.phone) ? `${formData.phoneCode} ${formData.phone}` : 'N/A',
         recipient: 'lush.backend@gmail.com'
       }),
     }).catch(() => {
@@ -126,7 +126,10 @@ const ChatForm = ({ onComplete, initialProduct }: { onComplete: () => void; init
     <form onSubmit={handleSubmit} className="flex flex-col gap-2.5 mt-2 p-4 bg-white border border-gray-200 rounded-xl w-full shadow-sm">
       <input required placeholder="Your Name *" className="p-2.5 text-sm border border-gray-200 rounded-lg bg-gray-50 text-gray-800 focus:outline-none focus:border-brand-gold" onChange={e => setFormData({...formData, name: e.target.value})} />
       <input required type="email" placeholder="Your Email *" className="p-2.5 text-sm border border-gray-200 rounded-lg bg-gray-50 text-gray-800 focus:outline-none focus:border-brand-gold" onChange={e => setFormData({...formData, email: e.target.value})} />
-      <input placeholder="Phone / WhatsApp" className="p-2.5 text-sm border border-gray-200 rounded-lg bg-gray-50 text-gray-800 focus:outline-none focus:border-brand-gold" onChange={e => setFormData({...formData, phone: e.target.value})} />
+      <div className="flex gap-2 w-full">
+        <input required type="text" placeholder="+Code *" value={formData.phoneCode} className="w-24 p-2.5 text-sm border border-gray-200 rounded-lg bg-gray-50 text-gray-800 focus:outline-none focus:border-brand-gold" onChange={e => setFormData({...formData, phoneCode: e.target.value})} />
+        <input required type="tel" placeholder="Phone / WhatsApp *" className="flex-1 p-2.5 text-sm border border-gray-200 rounded-lg bg-gray-50 text-gray-800 focus:outline-none focus:border-brand-gold" onChange={e => setFormData({...formData, phone: e.target.value})} />
+      </div>
       <select value={formData.product} className="p-2.5 text-sm border border-gray-200 rounded-lg bg-gray-50 text-gray-800 focus:outline-none focus:border-brand-gold" onChange={e => setFormData({...formData, product: e.target.value})}>
         <option value="Raw Cashew Nuts (RCN)">Raw Cashew Nuts (RCN)</option>
         <option value="Cashew Nut Kernels (White)">Cashew Nut Kernels (White)</option>
