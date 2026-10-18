@@ -74,10 +74,19 @@ export const metadata: Metadata = {
     google: '1fJRlxtEwLh23Ep1ignBLCgQXqkRBznemjR9sUGnOgs',
   },
   icons: {
-    icon: '/favicon.ico',
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/images/icon-48x48.png', sizes: '48x48', type: 'image/png' },
+      { url: '/images/icon-96x96.png', sizes: '96x96', type: 'image/png' },
+      { url: '/images/icon-192x192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/images/icon-512x512.png', sizes: '512x512', type: 'image/png' },
+    ],
     shortcut: '/favicon.ico',
-    apple: '/images/favicon.png',
+    apple: [
+      { url: '/images/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
   },
+  manifest: '/site.webmanifest',
 };
 
 export default function RootLayout({
@@ -88,6 +97,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${plusJakartaSans.variable} ${cinzel.variable}`} suppressHydrationWarning>
       <head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" type="image/png" sizes="48x48" href="/images/icon-48x48.png" />
+        <link rel="icon" type="image/png" sizes="96x96" href="/images/icon-96x96.png" />
+        <link rel="icon" type="image/png" sizes="192x192" href="/images/icon-192x192.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -96,6 +110,8 @@ export default function RootLayout({
               "@type": "Organization",
               "name": "Lush Trade Corp Tanzania Limited",
               "url": "https://www.lushtradecorp.com",
+              "logo": "https://www.lushtradecorp.com/images/icon-512x512.png",
+              "image": "https://www.lushtradecorp.com/images/icon-512x512.png",
               "email": "lushtradecorp@gmail.com",
               "telephone": "+255639354286",
               "address": {
