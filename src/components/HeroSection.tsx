@@ -16,7 +16,7 @@ export const HERO_CONFIG = {
   heading: {
     desktopFontSize: 56,    // Desktop headline font size in px (e.g. 52 - 68)
     tabletFontSize: 42,     // Tablet headline font size in px
-    mobileFontSize: 34,     // Mobile headline font size in px
+    mobileFontSize: 28,     // Mobile headline font size in px (balanced for mobile screens)
     maxWidth: 960,          // Maximum width of headline text block in px
     marginBottom: 14,       // Space below heading (above ship) in px
   },
@@ -37,8 +37,8 @@ export const HERO_CONFIG = {
     desktopHeight: 226,     // Ship height on desktop in px (width / 2.83)
     tabletWidth: 480,       // Ship width on tablets in px
     tabletHeight: 170,      // Ship height on tablets in px
-    mobileWidth: 340,       // Ship width on mobile in px
-    mobileHeight: 120,      // Ship height on mobile in px
+    mobileWidth: 300,       // Ship width on mobile in px
+    mobileHeight: 106,      // Ship height on mobile in px
     horizontalOffset: 0,    // (Alias for xPosition)
     verticalOffset: 0,      // (Alias for yPosition)
     marginBottom: 8,        // Space below ship (above subheading) in px
@@ -153,22 +153,21 @@ export default function HeroSection() {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 1, delay: 1.2 }}
           style={{ maxWidth: `${HERO_CONFIG.layout.maxWidth}px` }}
-          className="relative z-20 mx-auto px-4 sm:px-6 lg:px-8 w-full flex flex-col items-center text-center select-none pointer-events-none -mt-16 sm:-mt-40 lg:-mt-48"
+          className="relative z-20 mx-auto px-4 sm:px-6 lg:px-8 w-full flex flex-col items-center text-center select-none pointer-events-none -mt-8 sm:-mt-32 lg:-mt-48"
         >
           {/* Top Enterprise Badge */}
           <div
             style={{
-              fontSize: `${HERO_CONFIG.badge.fontSize}px`,
               paddingLeft: `${HERO_CONFIG.badge.paddingX}px`,
               paddingRight: `${HERO_CONFIG.badge.paddingX}px`,
               paddingTop: `${HERO_CONFIG.badge.paddingY}px`,
               paddingBottom: `${HERO_CONFIG.badge.paddingY}px`,
               marginBottom: `${HERO_CONFIG.badge.marginBottom}px`,
             }}
-            className="inline-flex items-center space-x-2 rounded-full bg-black/40 backdrop-blur-md border border-white/25 text-white shadow-md select-none"
+            className="inline-flex items-center space-x-2 rounded-full bg-black/40 backdrop-blur-md border border-white/25 text-white shadow-md select-none max-w-full"
           >
-            <Shield className="w-4 h-4 text-brand-gold" />
-            <span className="font-bold text-white tracking-wide uppercase">
+            <Shield className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-brand-gold shrink-0" />
+            <span className="font-bold text-[9.5px] sm:text-[11px] text-white tracking-wide uppercase leading-tight">
               Mtwara & Dar es Salaam • Enterprise Agro Exporter
             </span>
           </div>
@@ -179,7 +178,7 @@ export default function HeroSection() {
               align="center"
               phrases={["Connecting Tanzania's Agricultural Strength to the World"]}
               highlightWords={["Agricultural", "Strength"]}
-              highlightClassName="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-amber-200 to-white"
+              highlightClassName="text-transparent bg-clip-text bg-gradient-to-r from-[#FFC436] via-[#FF7A00] to-[#E11D74] drop-shadow-[0_2px_14px_rgba(253,50,44,0.35)]"
             />
           </h1>
 
@@ -203,7 +202,7 @@ export default function HeroSection() {
             {/* Foam crest line with subtle gold sheen */}
             <path
               d="M0,78 C240,120 500,40 760,84 C1020,128 1240,54 1440,88"
-              stroke="rgba(197, 155, 39, 0.45)"
+              stroke="rgba(253, 171, 10, 0.5)"
               strokeWidth="1.5"
               fill="none"
             />

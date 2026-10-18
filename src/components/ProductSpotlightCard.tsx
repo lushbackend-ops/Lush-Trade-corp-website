@@ -38,29 +38,29 @@ interface ProductTheme {
 
 const THEME_MAP: Record<string, ProductTheme> = {
   rcn: {
-    color: "#E8BF4C", // Lush Gold
+    color: "#FDAB0A", // Lush Golden Amber
     icon: Sparkles,
-    badgeBg: "rgba(232, 191, 76, 0.15)",
+    badgeBg: "rgba(253, 171, 10, 0.15)",
   },
   "cashew-kernels": {
-    color: "#F59E0B", // Cashew Amber
+    color: "#FF7A00", // Vivid Tangerine
     icon: Award,
-    badgeBg: "rgba(245, 158, 11, 0.15)",
+    badgeBg: "rgba(255, 122, 0, 0.15)",
   },
   pulses: {
-    color: "#2563EB", // Cobalt Blue
+    color: "#E11D74", // Vivid Magenta Pink
     icon: Leaf,
-    badgeBg: "rgba(37, 99, 235, 0.15)",
+    badgeBg: "rgba(225, 29, 116, 0.15)",
   },
   coffee: {
-    color: "#D97706", // Roasted Coffee Bronze
+    color: "#FD322C", // Warm Coral Flame
     icon: Coffee,
-    badgeBg: "rgba(217, 119, 6, 0.15)",
+    badgeBg: "rgba(253, 50, 44, 0.15)",
   },
   timber: {
-    color: "#F97316", // Rich Teak Orange
+    color: "#EA580C", // Rich Teak Orange
     icon: Trees,
-    badgeBg: "rgba(249, 115, 22, 0.15)",
+    badgeBg: "rgba(234, 88, 12, 0.15)",
   },
 };
 
@@ -72,10 +72,10 @@ function getProductTheme(product: Product): ProductTheme {
   // Category fallback
   switch (product.category) {
     case "Timber":
-      return { color: "#F97316", icon: Trees, badgeBg: "rgba(249, 115, 22, 0.15)" };
+      return { color: "#EA580C", icon: Trees, badgeBg: "rgba(234, 88, 12, 0.15)" };
     case "Agro-Commodities":
     default:
-      return { color: "#C59B27", icon: Leaf, badgeBg: "rgba(197, 155, 39, 0.15)" };
+      return { color: "#FDAB0A", icon: Leaf, badgeBg: "rgba(253, 171, 10, 0.15)" };
   }
 }
 
@@ -153,8 +153,8 @@ export default function ProductSpotlightCard({
       onClick={() => onSelect(product)}
       className={cn(
         "group relative flex flex-col overflow-hidden rounded-2xl border-2 text-left cursor-pointer",
-        // Marine slate frosted glass with thickened luminous light borders
-        "bg-[#132842]/90 border-white/30 shadow-xl backdrop-blur-md",
+        // Obsidian slate frosted glass with thickened luminous light borders
+        "bg-[#0F1722]/90 border-white/20 shadow-xl backdrop-blur-md",
         "transition-[border-color,box-shadow,transform] duration-300",
         "hover:border-brand-gold hover:shadow-2xl hover:-translate-y-1.5",
         "h-full",
@@ -172,7 +172,7 @@ export default function ProductSpotlightCard({
       />
 
       {/* ─── Card Visual Media ─── */}
-      <div className="relative h-56 w-full overflow-hidden bg-slate-900 rounded-t-2xl shrink-0 z-10">
+      <div className="relative h-44 sm:h-52 md:h-56 w-full overflow-hidden bg-slate-900 rounded-t-2xl shrink-0 z-10">
         <Image
           src={product.image}
           alt={product.altText}
@@ -182,13 +182,13 @@ export default function ProductSpotlightCard({
         />
         
         {/* Soft bottom image gradient for readability */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#132842] via-transparent to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0F1722] via-transparent to-transparent pointer-events-none" />
 
         {/* Top Badges */}
-        <div className="absolute top-4 left-4 right-4 flex items-center justify-between pointer-events-none z-10">
+        <div className="absolute top-3 left-3 right-3 sm:top-4 sm:left-4 sm:right-4 flex items-center justify-between pointer-events-none z-10">
           {/* Category Pill with Icon */}
           <span
-            className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-lg text-xs font-bold backdrop-blur-md border shadow-md"
+            className="inline-flex items-center space-x-1.5 px-2.5 py-1 sm:px-3 sm:py-1 rounded-lg text-[11px] sm:text-xs font-bold backdrop-blur-md border shadow-md"
             style={{
               backgroundColor: "rgba(255, 255, 255, 0.95)",
               color: "#0F172A",
@@ -201,7 +201,7 @@ export default function ProductSpotlightCard({
 
           {/* MOQ / Season Tag if present */}
           {(product.moq || product.season) && (
-            <span className="px-2.5 py-1 rounded-md text-[11px] font-bold bg-white/95 backdrop-blur-md text-slate-900 border border-white/50 shadow-md">
+            <span className="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-md text-[10px] sm:text-[11px] font-bold bg-white/95 backdrop-blur-md text-slate-900 border border-white/50 shadow-md">
               {product.moq ? `MOQ: ${product.moq}` : product.season}
             </span>
           )}
@@ -209,35 +209,35 @@ export default function ProductSpotlightCard({
       </div>
 
       {/* ─── Card Body Content ─── */}
-      <div className="relative z-10 p-6 flex-1 flex flex-col justify-between space-y-4">
+      <div className="relative z-10 p-4 sm:p-6 flex-1 flex flex-col justify-between space-y-3 sm:space-y-4">
         <div>
           {/* Title with subtle color shift on hover */}
           <h3 
-            className="text-lg font-bold text-white tracking-tight transition-colors duration-200 group-hover:text-brand-gold"
+            className="text-base sm:text-lg font-bold text-white tracking-tight transition-colors duration-200 group-hover:text-brand-gold"
           >
             {product.name}
           </h3>
 
           {/* Tagline */}
           <p 
-            className="text-xs font-semibold mt-1 tracking-wide"
+            className="text-xs font-semibold mt-0.5 sm:mt-1 tracking-wide"
             style={{ color: theme.color }}
           >
             {product.tagline}
           </p>
 
           {/* Short description */}
-          <p className="text-slate-300 text-xs mt-2.5 line-clamp-2 leading-relaxed">
+          <p className="text-slate-300 text-xs mt-2 line-clamp-2 leading-relaxed">
             {product.shortDesc}
           </p>
         </div>
 
         {/* Technical Highlight Badges */}
-        <div className="space-y-2 pt-3 border-t border-white/15">
+        <div className="space-y-1.5 sm:space-y-2 pt-2.5 sm:pt-3 border-t border-white/15">
           {product.specs.slice(0, 2).map((spec, i) => (
             <div key={i} className="flex justify-between items-center text-xs">
-              <span className="text-slate-300 font-medium">{spec.label}:</span>
-              <span className="text-white font-bold bg-white/15 px-2.5 py-0.5 rounded-lg border border-white/20 shadow-sm">
+              <span className="text-slate-300 font-medium text-[11px] sm:text-xs">{spec.label}:</span>
+              <span className="text-white font-bold bg-white/15 px-2 py-0.5 rounded-lg border border-white/20 shadow-sm text-[11px] sm:text-xs">
                 {spec.value}
               </span>
             </div>
@@ -246,25 +246,25 @@ export default function ProductSpotlightCard({
 
         {/* Origins Tag if available */}
         {product.origins && product.origins.length > 0 && (
-          <div className="flex items-center space-x-1.5 text-[11px] text-slate-300 pt-0.5">
+          <div className="flex items-center space-x-1.5 text-[10.5px] sm:text-[11px] text-slate-300 pt-0.5">
             <MapPin className="w-3.5 h-3.5 shrink-0" style={{ color: theme.color }} />
             <span className="truncate">Origins: {product.origins.join(", ")}</span>
           </div>
         )}
 
         {/* Card Action Button */}
-        <div className="pt-2">
+        <div className="pt-1.5 sm:pt-2">
           <button
             type="button"
             onClick={(e) => {
               e.stopPropagation();
               onSelect(product);
             }}
-            className="w-full inline-flex items-center justify-center py-2.5 px-4 rounded-xl text-xs font-bold text-white bg-blue-600 hover:bg-blue-500 transition-all duration-200 border border-blue-400/30 group/btn shadow-md hover:shadow-blue-500/25"
+            className="w-full inline-flex items-center justify-center py-2.5 px-3.5 sm:px-4 rounded-xl text-xs font-bold text-white bg-white/10 hover:bg-gradient-to-r hover:from-brand-coral hover:to-brand-gold border border-white/15 hover:border-transparent transition-all duration-300 group/btn shadow-sm hover:shadow-[0_4px_20px_rgba(253,50,44,0.35)]"
           >
             <span>View Specifications</span>
             <ArrowRight 
-              className="w-3.5 h-3.5 ml-2 transition-transform duration-200 group-hover/btn:translate-x-1 text-brand-gold" 
+              className="w-3.5 h-3.5 ml-2 transition-transform duration-200 group-hover/btn:translate-x-1 text-brand-gold group-hover/btn:text-white" 
             />
           </button>
         </div>

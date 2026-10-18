@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { Menu, X, ArrowRight, Phone, BookOpen } from 'lucide-react';
 import { ENTERPRISE_INFO } from '@/data/products';
@@ -69,24 +70,36 @@ export default function Header() {
         id="main-navbar"
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           hasWhiteBg
-            ? 'bg-gradient-to-r from-white/95 via-brand-cream/95 to-white/95 backdrop-blur-xl border-b border-black/5 shadow-sm py-3 sm:py-3.5'
-            : 'bg-transparent border-b border-transparent shadow-none py-4 sm:py-5'
+            ? 'bg-gradient-to-r from-white/95 via-brand-cream/95 to-white/95 backdrop-blur-xl border-b border-black/5 shadow-sm py-2.5 sm:py-3 after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[1px] after:bg-gradient-to-r after:from-transparent after:via-brand-coral/25 after:to-transparent'
+            : 'bg-transparent border-b border-transparent shadow-none py-3.5 sm:py-4.5'
         }`}
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex items-center justify-between relative">
-          {/* Left: Authentic Corporate Logo Typography */}
-          <Link href="/" className="flex flex-col select-none z-10 group focus:outline-none">
-            <span className={`font-logo font-bold text-[15px] sm:text-[17px] tracking-[0.22em] uppercase leading-none transition-colors duration-200 ${
-              hasWhiteBg ? 'text-brand-dark group-hover:text-brand-forest' : 'text-white group-hover:text-amber-100'
-            }`}>
-              LUSH TRADE CORP
-            </span>
-            <div className="flex items-center space-x-1.5 mt-1">
-              <span className={`text-[7px] sm:text-[8px] font-sans font-extrabold tracking-[0.36em] uppercase leading-none transition-colors duration-200 ${
-                hasWhiteBg ? 'text-brand-forest' : 'text-brand-gold'
+          {/* Left: Authentic Corporate Logo Lockup (Refined Proportion) */}
+          <Link href="/" className="flex items-center gap-2.5 select-none z-10 group focus:outline-none">
+            <div className="relative w-7 h-8 sm:w-7.5 sm:h-8.5 shrink-0 transition-transform duration-300 group-hover:scale-105">
+              <Image
+                src="/images/lush-mark.png"
+                alt="Lush Trade Corp Logo"
+                fill
+                sizes="34px"
+                priority
+                className="object-contain"
+              />
+            </div>
+            <div className="flex flex-col">
+              <span className={`font-logo font-extrabold text-[13px] sm:text-[14.5px] tracking-[0.22em] uppercase leading-none transition-colors duration-200 ${
+                hasWhiteBg ? 'text-brand-dark group-hover:text-brand-coral' : 'text-white group-hover:text-amber-200'
               }`}>
-                TANZANIA LIMITED
+                LUSH TRADE CORP
               </span>
+              <div className="flex items-center space-x-1.5 mt-0.5 sm:mt-1">
+                <span className={`text-[6.5px] sm:text-[7.5px] font-sans font-extrabold tracking-[0.34em] uppercase leading-none transition-colors duration-200 ${
+                  hasWhiteBg ? 'text-brand-coral' : 'text-brand-gold'
+                }`}>
+                  TANZANIA LIMITED
+                </span>
+              </div>
             </div>
           </Link>
 
@@ -103,18 +116,18 @@ export default function Header() {
                     hasWhiteBg
                       ? isActive
                         ? 'text-brand-dark font-bold'
-                        : 'text-slate-600 hover:text-brand-dark font-medium'
+                        : 'text-slate-600 hover:text-brand-coral font-medium'
                       : isActive
                         ? 'text-white font-semibold drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)]'
-                        : 'text-white/80 hover:text-white drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)]'
+                        : 'text-white/80 hover:text-amber-200 drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)]'
                   }`}
                 >
                   {isActive && (
                     <span
                       className={`w-1.5 h-1.5 rounded-full ${
                         hasWhiteBg
-                          ? 'bg-brand-forest'
-                          : 'bg-brand-gold shadow-[0_0_8px_#C59B27]'
+                          ? 'bg-gradient-to-r from-brand-coral to-brand-gold shadow-[0_0_8px_rgba(253,50,44,0.5)]'
+                          : 'bg-gradient-to-r from-brand-coral to-brand-gold shadow-[0_0_8px_#FDAB0A]'
                       }`}
                     />
                   )}
@@ -166,7 +179,7 @@ export default function Header() {
                     setMobileMenuOpen(false);
                   }}
                   className={`flex items-center justify-between text-xl font-medium tracking-wide py-2.5 border-b border-white/10 transition-colors ${
-                    isActive ? 'text-brand-gold' : 'text-slate-200 hover:text-brand-gold'
+                    isActive ? 'text-transparent bg-clip-text bg-gradient-to-r from-brand-coral to-brand-gold font-bold' : 'text-slate-200 hover:text-brand-gold'
                   }`}
                 >
                   <span className="flex items-center gap-2">
@@ -185,7 +198,7 @@ export default function Header() {
               </span>
               <a
                 href={`tel:${ENTERPRISE_INFO.phone.replace(/\s+/g, '')}`}
-                className="text-xs text-brand-gold flex items-center space-x-1.5 font-mono"
+                className="text-xs text-brand-gold hover:text-brand-coral flex items-center space-x-1.5 font-mono transition-colors"
               >
                 <Phone className="w-3 h-3" />
                 <span>{ENTERPRISE_INFO.phone}</span>
@@ -195,9 +208,9 @@ export default function Header() {
             <a
               href="#contact"
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full flex items-center justify-center gap-2 py-3.5 rounded-full bg-brand-gold text-brand-dark text-sm font-semibold tracking-wide shadow-lg active:scale-95 transition-transform"
+              className="w-full flex items-center justify-center gap-2 py-3.5 rounded-full bg-gradient-to-r from-brand-coral via-brand-orange to-brand-gold text-white text-sm font-bold tracking-wide shadow-lg hover:shadow-[0_4px_25px_rgba(253,80,20,0.45)] active:scale-95 transition-all"
             >
-              <span>Partner Us</span>
+              <span>Partner With Us</span>
               <ArrowRight className="w-4 h-4" />
             </a>
           </div>

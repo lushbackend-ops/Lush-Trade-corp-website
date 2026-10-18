@@ -56,10 +56,10 @@ body {
 }
 
 .glass-panel-dark {
-  background: rgba(5, 15, 26, 0.85);
+  background: rgba(11, 15, 23, 0.85);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(197, 155, 39, 0.2);
+  border: 1px solid rgba(253, 171, 10, 0.25);
 }
 
 /* Remove Side Scrollbar across all browsers while maintaining smooth scrolling */

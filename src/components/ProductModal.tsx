@@ -46,7 +46,7 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
     <AnimatePresence>
       <div
         data-lenis-prevent
-        className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto overscroll-contain"
+        className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto overscroll-contain"
       >
         {/* Backdrop */}
         <motion.div
@@ -63,15 +63,15 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
           initial={{ opacity: 0, scale: 0.95, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
-          className="relative bg-white w-full max-w-3xl rounded-2xl shadow-2xl overflow-hidden z-10 border border-slate-200 my-auto max-h-[88vh] flex flex-col overscroll-contain text-slate-800"
+          className="relative bg-white w-full max-w-3xl rounded-2xl shadow-2xl overflow-hidden z-10 border border-slate-200 my-auto max-h-[92vh] sm:max-h-[88vh] flex flex-col overscroll-contain text-slate-800"
         >
           {/* Header Bar */}
-          <div className="flex items-center justify-between px-6 py-4 bg-[#0C1E34] text-white border-b border-white/10 shrink-0">
+          <div className="flex items-center justify-between px-4 py-3 sm:px-6 sm:py-4 bg-[#0B0F17] text-white border-b border-white/10 shrink-0">
             <div className="flex items-center space-x-2">
-              <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-brand-gold text-brand-dark uppercase tracking-wider">
+              <span className="text-[10px] sm:text-xs font-bold px-2 sm:px-2.5 py-0.5 rounded-full bg-brand-gold text-brand-dark uppercase tracking-wider">
                 {product.category}
               </span>
-              <h3 className="text-lg font-bold text-white">{product.name}</h3>
+              <h3 className="text-base sm:text-lg font-bold text-white truncate max-w-[200px] sm:max-w-none">{product.name}</h3>
             </div>
             <button
               onClick={onClose}
@@ -84,21 +84,21 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
           {/* Scrollable Content Body */}
           <div
             data-lenis-prevent
-            className="p-6 overflow-y-auto space-y-6 flex-1 overscroll-contain"
+            className="p-4 sm:p-6 overflow-y-auto space-y-4 sm:space-y-6 flex-1 overscroll-contain"
           >
             
             {/* Visual Hero */}
-            <div className="relative h-64 rounded-xl overflow-hidden border border-slate-200">
+            <div className="relative h-44 sm:h-56 md:h-64 rounded-xl overflow-hidden border border-slate-200">
               <Image
                 src={product.image}
                 alt={product.altText}
                 fill
                 className="object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/40 to-transparent flex items-end p-6">
+              <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/40 to-transparent flex items-end p-4 sm:p-6">
                 <div>
-                  <p className="text-brand-gold font-bold text-sm tracking-wide uppercase">{product.tagline}</p>
-                  <h4 className="text-2xl font-extrabold text-white">{product.name}</h4>
+                  <p className="text-brand-gold font-bold text-xs sm:text-sm tracking-wide uppercase">{product.tagline}</p>
+                  <h4 className="text-xl sm:text-2xl font-extrabold text-white">{product.name}</h4>
                 </div>
               </div>
             </div>
@@ -179,7 +179,7 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
               <div className="space-y-2">
                 {product.highlights.map((item, i) => (
                   <div key={i} className="flex items-start text-xs text-slate-600">
-                    <CheckCircle className="w-4 h-4 text-blue-600 mr-2 shrink-0 mt-0.5" />
+                    <CheckCircle className="w-4 h-4 text-brand-gold mr-2 shrink-0 mt-0.5" />
                     <span>{item}</span>
                   </div>
                 ))}
@@ -189,17 +189,17 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
           </div>
 
           {/* Footer Action */}
-          <div className="px-6 py-4 bg-slate-50 border-t border-slate-200 flex items-center justify-between shrink-0">
-            <span className="text-xs text-slate-500 hidden sm:inline">
+          <div className="px-4 py-3 sm:px-6 sm:py-4 bg-slate-50 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-2.5 shrink-0">
+            <span className="text-[11px] sm:text-xs text-slate-500 hidden sm:inline">
               Need custom contract specifications? Contact our trade desk.
             </span>
             <a
               href="#contact"
               onClick={onClose}
-              className="inline-flex items-center justify-center px-6 py-2.5 text-sm font-bold text-brand-dark bg-gradient-to-r from-brand-gold to-brand-goldLight rounded-lg shadow hover:shadow-md transition-all ml-auto"
+              className="w-full sm:w-auto inline-flex items-center justify-center px-5 sm:px-6 py-2.5 text-xs sm:text-sm font-bold text-white bg-gradient-to-r from-brand-coral via-brand-orange to-brand-gold rounded-xl shadow-md hover:shadow-[0_4px_20px_rgba(253,50,44,0.35)] hover:scale-[1.02] active:scale-[0.98] transition-all sm:ml-auto"
             >
               <span>Request Quote for {product.name}</span>
-              <ArrowRight className="w-4 h-4 ml-2" />
+              <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 ml-2" />
             </a>
           </div>
 

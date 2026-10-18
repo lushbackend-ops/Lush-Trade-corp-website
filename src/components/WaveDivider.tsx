@@ -51,10 +51,10 @@ export default function WaveDivider({
           fill="currentColor"
           fillOpacity="0.55"
         />
-        {/* Layer 3: Foam crest line with subtle gold sheen */}
+        {/* Layer 3: Foam crest line with subtle golden amber sheen */}
         <path
           d="M0,78 C240,120 500,40 760,84 C1020,128 1240,54 1440,88"
-          stroke="rgba(197, 155, 39, 0.45)"
+          stroke="rgba(253, 171, 10, 0.45)"
           strokeWidth="1.5"
           fill="none"
         />
