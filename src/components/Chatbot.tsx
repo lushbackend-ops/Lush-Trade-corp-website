@@ -22,6 +22,7 @@ const CONVERSATION_GRAPH: Record<string, { text: string; options?: Array<{ label
     options: [
       { label: "Explore Products", action: "explore_products" },
       { label: "Request a Quote", action: "quote_form" },
+      { label: "Chat on WhatsApp", action: "open_whatsapp" },
       { label: "Contact Us", action: "contact" }
     ]
   },
@@ -69,7 +70,14 @@ const CONVERSATION_GRAPH: Record<string, { text: string; options?: Array<{ label
     ]
   },
   contact: {
-    text: "Email us at lushtradecorp@gmail.com or call +255 639 354 286. Our headquarters is located near Nangwanda Stadium in Mtwara, Tanzania.",
+    text: "Email us at lushtradecorp@gmail.com or call / WhatsApp +255 639 354 286. Our headquarters is located near Nangwanda Stadium in Mtwara, Tanzania.",
+    options: [
+      { label: "Chat on WhatsApp Directly", action: "open_whatsapp" },
+      { label: "Main Menu", action: "main" }
+    ]
+  },
+  whatsapp_direct: {
+    text: "WhatsApp chat has been opened with our trade desk (+255 639 354 286). You can send your inquiry directly!",
     options: [{ label: "Main Menu", action: "main" }]
   },
   quote_form: {
@@ -238,6 +246,13 @@ export default function Chatbot() {
       return [...updated, userMsg];
     });
 
+    if (action === 'open_whatsapp') {
+      const waMsg = payload || (selectedProduct ? `Hello Lush Trade Corp, I am interested in sourcing ${selectedProduct} and would like to request details and a quote.` : "Hello Lush Trade Corp, I am interested in sourcing agricultural commodities and would like to make an inquiry.");
+      window.open(`https://wa.me/255639354286?text=${encodeURIComponent(waMsg)}`, '_blank');
+      appendBotResponse('whatsapp_direct');
+      return;
+    }
+
     // Trigger next node
     appendBotResponse(action);
   };
@@ -246,8 +261,14 @@ export default function Chatbot() {
     return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   };
 
+  const whatsappUrl = `https://wa.me/255639354286?text=${encodeURIComponent(
+    selectedProduct
+      ? `Hello Lush Trade Corp, I am interested in sourcing ${selectedProduct} and would like to inquire about specifications, pricing, and availability.`
+      : "Hello Lush Trade Corp, I am interested in sourcing agricultural commodities and would like to inquire about specifications, pricing, and availability."
+  )}`;
+
   return (
-    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50">
+    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex flex-col items-end gap-3 pointer-events-none">
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -255,8 +276,8 @@ export default function Chatbot() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
-            className="mb-3 sm:mb-4 w-[calc(100vw-2rem)] sm:w-[400px] max-w-[400px] bg-white rounded-2xl shadow-2xl overflow-hidden border border-brand-gold/30 flex flex-col"
-            style={{ height: '520px', maxHeight: '80vh' }}
+            className="pointer-events-auto mb-1 w-[calc(100vw-2rem)] sm:w-[400px] max-w-[400px] bg-white rounded-2xl shadow-2xl overflow-hidden border border-brand-gold/30 flex flex-col"
+            style={{ height: '500px', maxHeight: 'calc(100dvh - 160px)' }}
           >
             {/* Header */}
             <div className="bg-brand-dark text-white px-4 py-3 sm:px-5 sm:py-4 flex justify-between items-center relative overflow-hidden">
@@ -362,30 +383,67 @@ export default function Chatbot() {
         )}
       </AnimatePresence>
 
-      {/* Toggle Button */}
-      <motion.button
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        onClick={() => setIsOpen(!isOpen)}
-        className="relative flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 bg-brand-dark rounded-full shadow-2xl text-brand-gold hover:bg-brand-dark/90 border border-brand-gold/40 transition-colors ml-auto group"
-        aria-label="Toggle chat"
-      >
-        {!isOpen && (
-          <span className="absolute -top-1 -right-1 flex h-3.5 w-3.5 sm:h-4 sm:w-4">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-coral opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-3.5 w-3.5 sm:h-4 sm:w-4 bg-brand-coral border-2 border-white"></span>
+      {/* Floating Action Buttons Column: Chatbot on top (shifted up), WhatsApp below it */}
+      <div className="pointer-events-auto flex flex-col items-end gap-3">
+        {/* Chatbot Toggle Button */}
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={() => setIsOpen(!isOpen)}
+          className="relative flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 bg-brand-dark rounded-full shadow-2xl text-brand-gold hover:bg-brand-dark/90 border border-brand-gold/40 transition-colors ml-auto group"
+          aria-label="Toggle AI Trade Assistant"
+        >
+          {/* Tooltip */}
+          <span className="pointer-events-none absolute right-full mr-3 top-1/2 -translate-y-1/2 whitespace-nowrap bg-brand-dark/95 text-white text-xs font-semibold px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity shadow-xl border border-brand-gold/30 hidden sm:flex items-center gap-1.5 z-10">
+            <span className="w-2 h-2 rounded-full bg-brand-gold"></span>
+            AI Trade Assistant
           </span>
-        )}
-        {isOpen ? (
-          <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+
+          {!isOpen && (
+            <span className="absolute -top-1 -right-1 flex h-3.5 w-3.5 sm:h-4 sm:w-4">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-coral opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-3.5 w-3.5 sm:h-4 sm:w-4 bg-brand-coral border-2 border-white"></span>
+            </span>
+          )}
+          {isOpen ? (
+            <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          ) : (
+            <svg className="w-6 h-6 sm:w-7 sm:h-7 transform group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+            </svg>
+          )}
+        </motion.button>
+
+        {/* WhatsApp Messenger Button */}
+        <motion.a
+          href={whatsappUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="relative flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 bg-[#25D366] hover:bg-[#20bd5a] text-white rounded-full shadow-2xl shadow-emerald-950/30 border border-white/20 transition-all ml-auto group"
+          aria-label="Direct WhatsApp Message to +255639354286"
+        >
+          {/* Tooltip */}
+          <span className="pointer-events-none absolute right-full mr-3 top-1/2 -translate-y-1/2 whitespace-nowrap bg-brand-dark/95 text-white text-xs font-semibold px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity shadow-xl border border-[#25D366]/40 hidden sm:flex items-center gap-1.5 z-10">
+            <span className="w-2 h-2 rounded-full bg-[#25D366] animate-pulse"></span>
+            WhatsApp Trade Desk (+255 639 354 286)
+          </span>
+
+          {/* Pulse notification badge */}
+          <span className="absolute -top-1 -right-1 flex h-3.5 w-3.5 sm:h-4 sm:w-4">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-3.5 w-3.5 sm:h-4 sm:w-4 bg-emerald-400 border-2 border-white"></span>
+          </span>
+
+          {/* Official WhatsApp Vector Icon */}
+          <svg className="w-6 h-6 sm:w-7 sm:h-7 fill-white transform group-hover:scale-110 transition-transform" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662a11.87 11.87 0 005.715 1.455h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
           </svg>
-        ) : (
-          <svg className="w-6 h-6 sm:w-7 sm:h-7 transform group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
-          </svg>
-        )}
-      </motion.button>
+        </motion.a>
+      </div>
     </div>
   );
 }
