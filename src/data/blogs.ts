@@ -158,6 +158,8 @@ For procurement executives and factory owners, sourcing Tanzanian RCN offers dis
 
 ## Major Cashew-Growing Regions in Tanzania
 
+![Export-ready Tanzanian Raw Cashew Nuts (RCN) sourced from southern belts: sun-dried to sub-9% moisture and graded for large nut counts.](/images/tanzanian-raw-cashew-nuts.jpg)
+
 More than 80% of Tanzania's national cashew harvest originates in the fertile southern coastal and plateau zones. The primary production belts include:
 
 ### 1. Mtwara & Masasi
@@ -203,6 +205,8 @@ Excess moisture during multi-week ocean transport triggers heat generation, fung
 ### Quality Inspection and Sampling
 Before cargo leaves the aggregation warehouse, professional third-party inspectors draw composite samples in accordance with international standards. Cutting tests verify kernel soundness, void rates, and moisture equilibrium before sealing containers.
 
+![Cashew cutting test in Mtwara quality laboratory: measuring kernel output ratio (50–55 LBS+), moisture level, and sound nut recovery.](/images/cashew-cutting-test.jpg)
+
 ---
 
 ## Harvest Season, Availability and Procurement Planning
@@ -228,6 +232,8 @@ To preserve quality during equatorial ocean voyages, Lush Trade Corp adheres to 
 - **Moisture Traps:** Calcium chloride desiccant bags are suspended inside container walls to absorb residual humidity during maritime passage.
 - **Payload:** Stuffed to 27.0 – 28.0 metric tons (approx. 338 – 350 bags per 40ft HC), maximizing container volume efficiency.
 
+![Export-grade whole cashew kernels (W180 Jumbo, W240, and W320) demonstrating superior whole kernel recovery after gentle factory shelling.](/images/tanzania-cashew-kernels.jpg)
+
 ---
 
 ## Export Documentation and Logistics
@@ -239,6 +245,8 @@ Smooth customs clearance at destination ports depends on accurate, verifiable do
 4. **Phytosanitary Certificate** issued by the Plant Health Services of the Tanzanian Ministry of Agriculture.
 5. **Fumigation & Pest Control Certificate** validating methyl bromide or phosphine treatment.
 6. **Certificate of Quality and Weight** issued by independent inspection agencies confirming outturn, nut count, moisture, and total sound kernel recovery.
+
+![Deepwater container vessel loading at Mtwara Port: direct ocean corridor connecting southern Tanzanian cashew harvests to global processing hubs.](/images/mtwara-port-container-loading.jpg)
 
 ---
 
@@ -310,6 +318,8 @@ Key Procurement Factors for 2025:
     ],
     content: `Grown on the nutrient-dense volcanic slopes of Mount Kilimanjaro, the southern highlands of Mbeya, and the equatorial shores of Lake Victoria in Kagera, Tanzanian coffee delivers an unmistakable sensory signature. 
 
+![Export-grade Tanzanian specialty green and roasted coffee beans: Kilimanjaro Arabica AAA and Bukoba Robusta FAQ.](/images/tanzanian-arabica-robusta-coffee.jpg)
+
 Kilimanjaro Arabica is cultivated between 1,400 and 2,000 meters above sea level. This high altitude slows cherry maturation, allowing complex sugars and delicate fruit esters to concentrate inside the bean. The result is a vibrant cup characterized by citrus brightness, blackcurrant nuances, and floral aromatics prized by specialty third-wave roasters in Germany, Japan, and Italy.
 
 Meanwhile, Bukoba Robusta FAQ continues to gain market share in the premium espresso sector. Naturally processed and screen-graded to standard 18 and 15 specifications, Bukoba Robusta provides an earthy sweetness, thick crema, and bold chocolate undertones without harsh astringency.
@@ -334,6 +344,8 @@ Lush Trade Corp ensures strict pre-export cupping, green moisture checks (11.0%�
       'Direct contracts with farmer cooperatives deliver long-term price predictability and volume security.'
     ],
     content: `Global commodity supply chains are undergoing a structural realignment. Supply volatility and climate shifts in traditional growing regions have caused enterprise buyers to expand direct procurement corridors into East Africa.
+
+![Container vessel loading operations at Mtwara Port: direct deepwater berth logistics connecting East African agro commodities to international markets.](/images/mtwara-port-container-loading.jpg)
 
 Here are the top 5 reasons global processors choose Tanzania as their sourcing powerhouse:
 1. Natural Organic Richness: Tanzania’s agricultural belts benefit from rich volcanic and loamy soils that yield nutrient-dense crops without synthetic fertilizer dependency.
@@ -476,6 +488,8 @@ Lush Trade Corp supplies processed cashew kernels packed in 25 lb or 50 lb multi
     ],
     content: `Tanzania has established itself as one of the world’s most reliable origins for high-protein pulses and leguminous grains. With vast cultivation across Dodoma, Singida, Manyara, and Arusha, the country produces bumper crops of pigeon peas (Cajanus cajan), desi chickpeas, and green mung beans.
 
+![High-protein Tanzanian agricultural pulses: pigeon peas (Toor), Desi chickpeas, and green mung beans cleaned and graded for export.](/images/tanzanian-pulses.jpg)
+
 The Seasonal Advantage for South Asian Importers:
 Tanzania’s pulse harvest peaks precisely between August and November. This timing coincides with the seasonal gap in the Indian subcontinent prior to the local domestic Kharif harvest. As a result, Tanzanian pigeon peas and chickpeas trade at peak liquidity through bilateral duty-free quotas.
 
@@ -505,6 +519,8 @@ Lush Trade Corp handles inland aggregation, cleaning, destoning, and container p
     ],
     content: `Tanzanian plantation teak (Tectona grandis) is renowned in naval shipbuilding, luxury outdoor furniture manufacturing, and architectural joinery. Cultivated primarily in the Kilombero and Mtibwa river valleys, these sustainably managed plantations benefit from rich alluvial soil and humid tropical climates that encourage dense annual growth rings.
 
+![Sustainable Tanzanian plantation teak (Tectona grandis) logs and timber harvested under Tanzania Forest Services (TFS) conservation guidelines.](/images/tanzanian-teak-pine-timber.jpg)
+
 Quality Characteristics of Tanzanian Teak:
 - High Natural Tectoquione Oil: Provides natural resistance to moisture, termites, and fungal decay without chemical pressure treatments.
 - Golden-Brown Patina: Matures gracefully into a silvery grey or lustrous warm bronze hue under sunlight.
@@ -531,6 +547,8 @@ Tanzania enforces strict conservation guidelines. Every timber export consignmen
       'Deepwater berths at both ports comfortably accommodate Handymax and Panamax cargo vessels.'
     ],
     content: `Efficient maritime logistics make or break an agricultural export contract. Tanzania is endowed with two premier commercial harbors along the western Indian Ocean seaboard: the Port of Dar es Salaam and the Port of Mtwara.
+
+![Commercial container vessel and gantry crane operations at Mtwara Port deepwater terminal: direct export corridor for southern Tanzania.](/images/mtwara-port-container-loading.jpg)
 
 Port of Mtwara: The Cashew Capital Gateway
 Located in southern Tanzania, Mtwara Port boasts a natural deepwater harbor with an approach draft exceeding 13.5 meters. 

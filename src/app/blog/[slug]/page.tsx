@@ -170,6 +170,34 @@ function renderArticleContent(content: string) {
       );
     }
 
+    // In-Article Markdown Image: ![Alt text](image-url)
+    if (trimmed.startsWith('![') && trimmed.includes('](') && trimmed.endsWith(')')) {
+      const imgMatch = trimmed.match(/^!\[(.*?)\]\((.*?)\)$/);
+      if (imgMatch) {
+        const alt = imgMatch[1];
+        const src = imgMatch[2];
+        return (
+          <figure key={idx} className="my-8 sm:my-10 space-y-2">
+            <div className="relative aspect-[16/9] w-full rounded-2xl overflow-hidden border border-slate-200/90 shadow-md bg-slate-900 group">
+              <Image
+                src={src}
+                alt={alt}
+                fill
+                sizes="(max-width: 896px) 100vw, 896px"
+                className="object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+            </div>
+            {alt && (
+              <figcaption className="text-center text-xs text-slate-500 italic px-4 leading-relaxed">
+                {alt}
+              </figcaption>
+            )}
+          </figure>
+        );
+      }
+    }
+
     // Horizontal Rule
     if (trimmed === '---') {
       return <hr key={idx} className="my-8 border-slate-200" />;
@@ -440,22 +468,6 @@ export default async function BlogPostPage({ params }: PageProps) {
             </div>
           </div>
         </header>
-
-        {/* Featured Image */}
-        <div className="relative aspect-[16/9] w-full rounded-2xl overflow-hidden shadow-lg border border-slate-200 mb-8 sm:mb-10 bg-slate-900">
-          <Image
-            src={imageInfo.src}
-            alt={imageInfo.alt}
-            fill
-            priority
-            sizes="(max-width: 896px) 100vw, 896px"
-            className="object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
-          <div className="absolute bottom-3 left-4 text-[11px] text-white/90 font-medium bg-black/40 px-2.5 py-1 rounded-md backdrop-blur-xs">
-            {imageInfo.alt}
-          </div>
-        </div>
 
         {/* Executive Summary / Introduction */}
         <div className="p-5 sm:p-7 rounded-2xl bg-white border border-slate-200 shadow-xs mb-8 space-y-3">

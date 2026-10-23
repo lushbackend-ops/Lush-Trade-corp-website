@@ -58,11 +58,10 @@ export default function BlogArchiveClient({ posts }: BlogArchiveClientProps) {
 
   const displayedPosts = filteredPosts.slice(0, visibleCount);
   const hasMore = visibleCount < filteredPosts.length;
-  const featuredImage = getBlogImage(featuredPost);
 
   return (
     <div className="space-y-12 sm:space-y-16">
-      {/* ─── Featured Article Showcase ─── */}
+      {/* ─── Featured Article Showcase (Pure Typographic Banner — No Image) ─── */}
       {featuredPost && selectedCategory === 'All' && !searchQuery && (
         <section aria-label="Featured Commodity Guide">
           <div className="relative rounded-3xl bg-gradient-to-br from-[#0F172A] via-[#1E293B] to-[#0A0F1D] text-white p-6 sm:p-8 lg:p-12 border border-slate-700/60 shadow-2xl overflow-hidden group">
@@ -70,89 +69,65 @@ export default function BlogArchiveClient({ posts }: BlogArchiveClientProps) {
             <div className="absolute top-0 right-0 w-96 h-96 bg-brand-gold/15 rounded-full blur-3xl pointer-events-none" />
             <div className="absolute bottom-0 left-0 w-80 h-80 bg-brand-coral/15 rounded-full blur-3xl pointer-events-none" />
 
-            <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-              {/* Featured Left Content */}
-              <div className="lg:col-span-7 space-y-4 sm:space-y-5">
-                <div className="flex flex-wrap items-center gap-2.5">
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-gold/20 text-brand-gold border border-brand-gold/30 text-xs font-bold uppercase tracking-wider">
-                    <Sparkles className="w-3.5 h-3.5" />
-                    Flagship Buyer Guide
-                  </span>
-                  <span className="px-3 py-1 rounded-full bg-white/10 text-slate-300 text-xs font-medium border border-white/10">
-                    {featuredPost.category}
-                  </span>
-                </div>
-
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-tight group-hover:text-amber-200 transition-colors">
-                  <Link href={`/blog/${featuredPost.slug}`}>
-                    {featuredPost.title}
-                  </Link>
-                </h2>
-
-                <p className="text-slate-300 text-sm sm:text-base leading-relaxed line-clamp-3 sm:line-clamp-4">
-                  {featuredPost.summary}
-                </p>
-
-                {/* Key Takeaways Highlights */}
-                {featuredPost.keyTakeaways && featuredPost.keyTakeaways.length > 0 && (
-                  <div className="p-4 rounded-xl bg-white/[0.04] border border-white/10 space-y-2">
-                    <span className="text-[11px] font-bold uppercase tracking-wider text-brand-gold block">
-                      Core Commercial Highlights:
-                    </span>
-                    <ul className="space-y-1.5 text-xs text-slate-300">
-                      {featuredPost.keyTakeaways.slice(0, 2).map((takeaway, i) => (
-                        <li key={i} className="flex items-start gap-2">
-                          <span className="text-brand-gold font-bold">✓</span>
-                          <span>{takeaway}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-
-                <div className="pt-2 flex flex-wrap items-center justify-between gap-4">
-                  <div className="flex items-center gap-4 text-xs text-slate-400">
-                    <span className="flex items-center gap-1.5">
-                      <Calendar className="w-3.5 h-3.5 text-brand-gold" />
-                      {featuredPost.date}
-                    </span>
-                    <span className="flex items-center gap-1.5">
-                      <Clock className="w-3.5 h-3.5 text-brand-gold" />
-                      {featuredPost.readTime}
-                    </span>
-                  </div>
-
-                  <Link
-                    href={`/blog/${featuredPost.slug}`}
-                    className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-white bg-gradient-to-r from-brand-coral via-brand-orange to-brand-gold hover:shadow-lg hover:scale-105 active:scale-95 transition-all text-xs sm:text-sm"
-                  >
-                    <span>Read Complete Guide</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </Link>
-                </div>
+            <div className="relative z-10 max-w-4xl space-y-4 sm:space-y-6">
+              <div className="flex flex-wrap items-center gap-2.5">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-gold/20 text-brand-gold border border-brand-gold/30 text-xs font-bold uppercase tracking-wider">
+                  <Sparkles className="w-3.5 h-3.5" />
+                  Flagship Buyer Guide
+                </span>
+                <span className="px-3 py-1 rounded-full bg-white/10 text-slate-300 text-xs font-medium border border-white/10">
+                  {featuredPost.category}
+                </span>
+                <span className="text-xs text-slate-400 hidden sm:inline">• Comprehensive Sourcing Intelligence</span>
               </div>
 
-              {/* Featured Right Media */}
-              <div className="lg:col-span-5">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-tight group-hover:text-amber-200 transition-colors">
+                <Link href={`/blog/${featuredPost.slug}`}>
+                  {featuredPost.title}
+                </Link>
+              </h2>
+
+              <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
+                {featuredPost.summary}
+              </p>
+
+              {/* Key Takeaways Highlights */}
+              {featuredPost.keyTakeaways && featuredPost.keyTakeaways.length > 0 && (
+                <div className="p-4 sm:p-5 rounded-2xl bg-white/[0.04] border border-white/10 space-y-2.5">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-brand-gold block">
+                    Core Commercial Highlights for Buyers:
+                  </span>
+                  <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-300">
+                    {featuredPost.keyTakeaways.map((takeaway, i) => (
+                      <li key={i} className="flex items-start gap-2">
+                        <span className="text-brand-gold font-bold">✓</span>
+                        <span className="leading-relaxed">{takeaway}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              <div className="pt-2 flex flex-wrap items-center justify-between gap-4">
+                <div className="flex items-center gap-4 text-xs text-slate-400">
+                  <span className="flex items-center gap-1.5">
+                    <Calendar className="w-3.5 h-3.5 text-brand-gold" />
+                    {featuredPost.date}
+                  </span>
+                  <span className="flex items-center gap-1.5">
+                    <Clock className="w-3.5 h-3.5 text-brand-gold" />
+                    {featuredPost.readTime}
+                  </span>
+                  <span className="hidden sm:inline text-slate-500">•</span>
+                  <span className="hidden sm:inline text-slate-400">By {featuredPost.author}</span>
+                </div>
+
                 <Link
                   href={`/blog/${featuredPost.slug}`}
-                  className="block relative aspect-[4/3] rounded-2xl overflow-hidden border border-white/15 shadow-xl group-hover:border-brand-gold/40 transition-colors"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-white bg-gradient-to-r from-brand-coral via-brand-orange to-brand-gold hover:shadow-lg hover:scale-105 active:scale-95 transition-all text-xs sm:text-sm"
                 >
-                  <Image
-                    src={featuredImage.src}
-                    alt={featuredImage.alt}
-                    fill
-                    priority
-                    sizes="(max-width: 1024px) 100vw, 40vw"
-                    className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-                  <div className="absolute bottom-4 left-4 right-4">
-                    <span className="inline-flex items-center gap-1.5 text-xs font-bold text-white/90">
-                      <span>Verified Origin Specifications</span>
-                      <ArrowUpRight className="w-3.5 h-3.5 text-brand-gold" />
-                    </span>
-                  </div>
+                  <span>Read Complete Guide</span>
+                  <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
             </div>

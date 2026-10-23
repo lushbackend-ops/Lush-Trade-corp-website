@@ -30,7 +30,7 @@ export default function Footer() {
   ];
 
   const socialLinks = [
-    { name: 'LinkedIn', icon: Linkedin, href: 'https://linkedin.com' },
+    { name: 'LinkedIn', icon: Linkedin, href: 'https://www.linkedin.com/company/lush-trade-corp' },
     { name: 'Instagram', icon: Instagram, href: 'https://www.instagram.com/lush.trade.corp/' },
     { name: 'Facebook', icon: Facebook, href: 'https://www.facebook.com/profile.php?id=61594566767273' },
     { name: 'YouTube', icon: Youtube, href: 'https://www.youtube.com/@LushTradeCorp' },
