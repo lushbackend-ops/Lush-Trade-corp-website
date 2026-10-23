@@ -469,6 +469,22 @@ export default async function BlogPostPage({ params }: PageProps) {
           </div>
         </header>
 
+        {/* Featured Image */}
+        <div className="relative aspect-[16/9] w-full rounded-2xl overflow-hidden shadow-lg border border-slate-200 mb-8 sm:mb-10 bg-slate-900">
+          <Image
+            src={imageInfo.src}
+            alt={imageInfo.alt}
+            fill
+            priority
+            sizes="(max-width: 896px) 100vw, 896px"
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
+          <div className="absolute bottom-3 left-4 text-[11px] text-white/90 font-medium bg-black/40 px-2.5 py-1 rounded-md backdrop-blur-xs">
+            {imageInfo.alt}
+          </div>
+        </div>
+
         {/* Executive Summary / Introduction */}
         <div className="p-5 sm:p-7 rounded-2xl bg-white border border-slate-200 shadow-xs mb-8 space-y-3">
           <span className="text-[11px] font-bold uppercase tracking-wider text-brand-coral block">
