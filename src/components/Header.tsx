@@ -58,7 +58,7 @@ export default function Header() {
     { name: 'About Us', href: isHomePage ? '#about' : '/#about', id: 'about' },
     { name: 'Products', href: isHomePage ? '#products' : '/#products', id: 'products' },
     { name: 'Partner With Us', href: isHomePage ? '#usps' : '/#usps', id: 'usps' },
-    { name: 'Blog', href: isHomePage ? '#blog' : '/#blog', id: 'blog' },
+    { name: 'Blog', href: isHomePage ? '#blog' : '/blog', id: 'blog' },
     { name: 'Contact', href: isHomePage ? '#contact' : '/#contact', id: 'contact' },
   ];
 
@@ -206,7 +206,7 @@ export default function Header() {
             </div>
 
             <a
-              href="#contact"
+              href={isHomePage ? '#contact' : '/#contact'}
               onClick={() => setMobileMenuOpen(false)}
               className="w-full flex items-center justify-center gap-2 py-3.5 rounded-full bg-gradient-to-r from-brand-coral via-brand-orange to-brand-gold text-white text-sm font-bold tracking-wide shadow-lg hover:shadow-[0_4px_25px_rgba(253,80,20,0.45)] active:scale-95 transition-all"
             >

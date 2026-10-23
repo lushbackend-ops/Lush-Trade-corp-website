@@ -11,39 +11,45 @@ export default function USPsSection() {
   const usps = [
     {
       icon: Globe,
-      title: '360° Sourcing & Logistics',
-      description: 'End-to-end global supply chain execution from Tanzania directly to processing hubs across Asia, Europe, and the Middle East.',
-      badge: '360° Global Reach',
+      title: 'Sourcing & Logistics Coordination',
+      description: 'Coordinated supply chain management from Tanzanian origin hubs directly to processing destinations across Asia, Europe, and the Middle East.',
+      badge: 'Global Corridors',
+      label: 'Sourcing and logistics coordination',
     },
     {
       icon: ShieldCheck,
-      title: 'On-Ground Quality Control',
-      description: 'Rigorous on-ground quality control, moisture verification, and continuous SGS and phytosanitary inspections before vessel loading.',
-      badge: 'SGS & Purity Assured',
+      title: 'Quality Inspection & Grading',
+      description: 'On-ground quality evaluation, moisture verification, outturn assessment, and official phytosanitary inspection prior to vessel stowage.',
+      badge: 'Pre-Shipment Assured',
+      label: 'Quality inspection and grading',
     },
     {
       icon: Users,
-      title: 'Verified Supplier Base',
-      description: 'Direct, long-term farming contracts and established aggregation networks in Masasi, Mtwara, Newala, Dodoma, Iringa, and Arusha.',
-      badge: 'Direct Farm Contracts',
+      title: 'Verified Supplier Network',
+      description: 'Established aggregation relationships and verified supplier networks across Masasi, Mtwara, Newala, Dodoma, Iringa, and Arusha.',
+      badge: 'Regional Aggregation',
+      label: 'Supplier verification',
     },
     {
       icon: FileCheck,
-      title: 'Dedicated Documentation',
-      description: 'Experienced in-house export documentation and logistics team managing customs, CBT compliance, and international shipping clearance.',
-      badge: 'Zero Delay Docs',
+      title: 'Export Documentation Support',
+      description: 'Support for export documentation including certificates of origin, phytosanitary clearance, CBT compliance, and bill of lading documentation.',
+      badge: 'Compliance Ready',
+      label: 'Export documentation support',
     },
     {
       icon: Award,
-      title: 'Ethical & Transparent Trade',
-      description: 'Uncompromising integrity and ethical, transparent trade policies that empower Tanzanian producers and build lasting buyer trust.',
-      badge: 'Fair Trade Standards',
+      title: 'Transparent Trade Practices',
+      description: 'Transparent communication, clear contract terms, and dependable commercial practices supporting long-term international trade partnerships.',
+      badge: 'Integrity First',
+      label: 'Transparent trade practices',
     },
     {
       icon: Clock,
-      title: 'Bushes to Port Operations',
-      description: 'Dedicated and highly experienced on-ground team managing logistics seamlessly from bushes to port operations in Mtwara and Dar es Salaam.',
-      badge: 'Bushes to Port',
+      title: 'Origin-to-Port Coordination',
+      description: 'Coordinated regional logistics managing commodity movement from local collection centers to port loading facilities in Mtwara and Dar es Salaam.',
+      badge: 'Mtwara & Dar es Salaam',
+      label: 'Origin-to-port coordination',
     },
   ];
 
@@ -110,7 +116,7 @@ export default function USPsSection() {
                   </div>
 
                   <div className="pt-4 mt-4 sm:pt-6 sm:mt-6 border-t border-slate-100 flex items-center text-xs font-bold text-brand-coral group-hover:text-brand-gold transition-colors">
-                    <span>Guaranteed Execution</span>
+                    <span>{usp.label}</span>
                     <ArrowUpRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 ml-1" />
                   </div>
                 </TiltCard>

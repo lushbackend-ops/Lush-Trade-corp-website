@@ -156,11 +156,11 @@ export const PRODUCTS_DATA: Product[] = [
     fullDesc: 'We supply premium Tanzanian hardwood and softwood timber, kiln-dried and export-ready for furniture, construction, and industrial applications. Lush Trade Corp Tanzania Limited is the best timber exporter, producer and supplier in Tanzania operating from the roots to the end processors on a long-term basis.',
     specs: [
       { label: 'Wood Types', value: 'Teak Wood, Pine Wood' },
-      { label: 'Origins', value: 'Mafinga, Iringa, Morogoro' },
+      { label: 'Moisture / Treatment', value: 'Kiln-Dried (MC 10–12%)' },
       { label: '20ft Container Loading', value: '23 MT / 25 CBM' },
       { label: '40ft Container Loading', value: '27 MT / 27 CBM' },
       { label: 'MOQ (Minimum Order Qty)', value: '5 × 40ft FCL' },
-      { label: 'Condition', value: 'Kiln-Dried & Export Ready' },
+      { label: 'Processing Condition', value: 'Export Ready Sawn Timber' },
     ],
     origins: ['Mafinga', 'Iringa', 'Morogoro'],
     moq: '5 × 40ft FCL',

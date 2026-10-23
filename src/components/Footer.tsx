@@ -22,11 +22,11 @@ export default function Footer() {
   };
 
   const navLinks = [
-    { name: 'About Us', href: '#about' },
-    { name: 'Products', href: '#products' },
-    { name: 'Partner With Us', href: '#usps' },
-    { name: 'Blog', href: '#blog' },
-    { name: 'Contact ', href: '#contact' },
+    { name: 'About Us', href: '/#about' },
+    { name: 'Products Portfolio', href: '/#products' },
+    { name: 'Partner With Us', href: '/#usps' },
+    { name: 'Market Intelligence & Blog', href: '/blog' },
+    { name: 'Trade Desk & Contact', href: '/#contact' },
   ];
 
   const socialLinks = [
@@ -83,7 +83,7 @@ export default function Footer() {
               </span>
               <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/[0.04] border border-white/10">
                 <ShieldCheck className="w-3 h-3 text-brand-gold" />
-                SGS Inspected
+                Pre-Shipment Quality Assured
               </span>
             </div>
           </div>

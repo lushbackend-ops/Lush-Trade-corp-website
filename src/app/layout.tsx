@@ -26,28 +26,33 @@ const cinzel = Cinzel({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://lushtradecorp.com'),
-  title: 'Lush Trade Corp | Tanzania Export & Import Company',
-  description: 'Lush Trade Corp Tanzania Limited connects African producers with global buyers through premium cashews, agro-commodities, coffee, pulses, timber and international sourcing.',
+  metadataBase: new URL('https://www.lushtradecorp.com'),
+  title: {
+    default: 'Tanzania Cashew Nut, Coffee & Agro Exporter | Lush Trade Corp',
+    template: '%s | Lush Trade Corp',
+  },
+  description:
+    'Lush Trade Corp Tanzania Limited sources and exports raw cashew nuts, cashew kernels, coffee, pulses and timber for international wholesale buyers. Request product specifications and export quotations.',
   keywords: [
-    'Tanzania export company',
     'Tanzania cashew exporter',
+    'Tanzanian raw cashew nut supplier',
     'Raw Cashew Nuts Tanzania',
     'Cashew kernel Tanzania',
-    'African agro commodity exporter',
     'Tanzania coffee exporter',
     'Tanzania pulses exporter',
     'Tanzania timber exporter',
-    'African sourcing partner',
-    'Tanzania import export company'
+    'African agro commodity exporter',
+    'Mtwara cashew export',
+    'Tanzania export company',
   ],
   authors: [{ name: 'Lush Trade Corp Tanzania Limited' }],
   alternates: {
     canonical: 'https://www.lushtradecorp.com',
   },
   openGraph: {
-    title: 'Lush Trade Corp | Tanzania Export & Import Company',
-    description: 'Lush Trade Corp Tanzania Limited connects African producers with global buyers through premium cashews, agro-commodities, coffee, pulses, timber and international sourcing.',
+    title: 'Tanzania Cashew Nut, Coffee & Agro Exporter | Lush Trade Corp',
+    description:
+      'Lush Trade Corp Tanzania Limited sources and exports raw cashew nuts, cashew kernels, coffee, pulses and timber for international wholesale buyers. Request product specifications and export quotations.',
     url: 'https://www.lushtradecorp.com',
     siteName: 'Lush Trade Corp',
     images: [
@@ -55,7 +60,7 @@ export const metadata: Metadata = {
         url: '/images/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'Lush Trade Corp Tanzania - Export and Import Company',
+        alt: 'Lush Trade Corp Tanzania - Agricultural Commodity Exporter',
       },
     ],
     locale: 'en_TZ',
@@ -63,8 +68,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Lush Trade Corp | Tanzania Export & Import Company',
-    description: 'Lush Trade Corp Tanzania Limited connects African producers with global buyers through premium cashews, agro-commodities, coffee, pulses, timber and international sourcing.',
+    title: 'Tanzania Cashew Nut, Coffee & Agro Exporter | Lush Trade Corp',
+    description:
+      'Lush Trade Corp Tanzania Limited sources and exports raw cashew nuts, cashew kernels, coffee, pulses and timber for international wholesale buyers. Request product specifications and export quotations.',
+    images: ['/images/og-image.jpg'],
   },
   robots: {
     index: true,
@@ -107,21 +114,40 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
-              "@type": "Organization",
-              "name": "Lush Trade Corp Tanzania Limited",
-              "url": "https://www.lushtradecorp.com",
-              "logo": "https://www.lushtradecorp.com/images/icon-512x512.png",
-              "image": "https://www.lushtradecorp.com/images/icon-512x512.png",
-              "email": "lushtradecorp@gmail.com",
-              "telephone": "+255639354286",
-              "address": {
-                "@type": "PostalAddress",
-                "streetAddress": "Plot No. 658, near Nangwanda Stadium, P.O. Box 444",
-                "addressLocality": "Mtwara",
-                "addressCountry": "Tanzania"
-              },
-              "areaServed": ["Mtwara", "Dar es Salaam"],
-              "description": "Lush Trade Corp Tanzania Limited is an export-import enterprise based in Mtwara, Tanzania, engaged in sourcing, processing and trading agro-commodities and industrial products across Africa, Asia and Europe."
+              "@graph": [
+                {
+                  "@type": "Organization",
+                  "@id": "https://www.lushtradecorp.com/#organization",
+                  "name": "Lush Trade Corp Tanzania Limited",
+                  "url": "https://www.lushtradecorp.com",
+                  "logo": "https://www.lushtradecorp.com/images/icon-512x512.png",
+                  "image": "https://www.lushtradecorp.com/images/icon-512x512.png",
+                  "email": "lushtradecorp@gmail.com",
+                  "telephone": "+255639354286",
+                  "address": {
+                    "@type": "PostalAddress",
+                    "streetAddress": "Plot No. 658, near Nangwanda Stadium, P.O. Box 444",
+                    "addressLocality": "Mtwara",
+                    "addressCountry": "Tanzania"
+                  },
+                  "areaServed": ["Mtwara", "Dar es Salaam", "Global"],
+                  "description": "Lush Trade Corp Tanzania Limited sources and exports raw cashew nuts, cashew kernels, coffee, pulses and timber for international wholesale buyers."
+                },
+                {
+                  "@type": "WebSite",
+                  "@id": "https://www.lushtradecorp.com/#website",
+                  "url": "https://www.lushtradecorp.com",
+                  "name": "Lush Trade Corp",
+                  "publisher": {
+                    "@id": "https://www.lushtradecorp.com/#organization"
+                  },
+                  "potentialAction": {
+                    "@type": "SearchAction",
+                    "target": "https://www.lushtradecorp.com/blog?q={search_term_string}",
+                    "query-input": "required name=search_term_string"
+                  }
+                }
+              ]
             })
           }}
         />

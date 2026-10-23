@@ -19,6 +19,17 @@ export interface BlogPost {
   keyTakeaways: string[];
   hashtags: string[];
   metaDescription: string;
+  image?: string;
+  imageAlt?: string;
+  specsTable?: {
+    parameter: string;
+    specification: string;
+    commercialRelevance: string;
+  }[];
+  faqs?: {
+    question: string;
+    answer: string;
+  }[];
 }
 
 export const BLOG_CATEGORIES = [
@@ -32,7 +43,228 @@ export const BLOG_CATEGORIES = [
   'Market Intelligence',
 ] as const;
 
+export function getBlogImage(post: BlogPost): { src: string; alt: string } {
+  if (post.image) {
+    return { src: post.image, alt: post.imageAlt || post.title };
+  }
+  switch (post.category) {
+    case 'Cashew Sector':
+      return { src: '/images/tanzanian-raw-cashew-nuts.jpg', alt: 'Tanzanian Raw Cashew Nuts in Mtwara warehouse' };
+    case 'Specialty Coffee':
+      return { src: '/images/tanzanian-arabica-robusta-coffee.jpg', alt: 'Tanzanian Arabica and Robusta green coffee beans' };
+    case 'Pulses & Grains':
+      return { src: '/images/tanzanian-pulses.jpg', alt: 'Tanzanian pulses, chickpeas and pigeon peas' };
+    case 'Maritime Logistics':
+    case 'Trade Regulations':
+    case 'Trade Strategy':
+    case 'Market Intelligence':
+    default:
+      return { src: '/images/og-image.jpg', alt: 'Lush Trade Corp Tanzania export logistics' };
+  }
+}
+
 export const BLOG_POSTS: BlogPost[] = [
+  {
+    id: 'tanzania-rcn-sourcing-guide',
+    slug: 'tanzania-raw-cashew-nuts-sourcing-guide',
+    title: 'Tanzania Raw Cashew Nuts: A Sourcing Guide for International Buyers',
+    category: 'Cashew Sector',
+    date: 'October 2026',
+    isoDate: '2026-10-23T08:00:00Z',
+    readTime: '8 min read',
+    author: 'Lush Trade Corp Commodity Desk',
+    image: '/images/tanzanian-raw-cashew-nuts.jpg',
+    imageAlt: 'Export-ready Tanzanian Raw Cashew Nuts (RCN) in Mtwara warehouse',
+    summary: 'A comprehensive commercial guide for international cashew processors and commodity traders sourcing raw cashew nuts from Tanzania. Covers outturn ratios (50–55 LBS+), nut counts (160–180/kg), harvest calendars, Mtwara port logistics, and CBT auction regulations.',
+    metaDescription: 'Essential sourcing guide for Tanzanian Raw Cashew Nuts (RCN). Learn about outturn ratios (50-55 LBS+), nut counts, harvest timelines, Mtwara Port logistics, and export documentation.',
+    keyTakeaways: [
+      'Tanzanian RCN commands a global premium due to superior outturn ratios averaging 50–55 LBS+ and nut counts of 160–180 per kg.',
+      'The primary harvest window opens in October and peaks through January across Mtwara, Masasi, Newala, and Tandahimba.',
+      'Direct containerized vessel loading from Mtwara Port eliminates costly transshipments, slashing transit times to India and Vietnam.',
+      'All commercial exports comply with Cashew Nut Board of Tanzania (CBT) warehouse regulations, phytosanitary clearance, and certified pre-shipment quality inspection.'
+    ],
+    hashtags: ['#CashewExports', '#RawCashewNuts', '#TanzaniaCashews', '#MtwaraPort', '#AgroCommodities', '#B2BProcurement'],
+    specsTable: [
+      {
+        parameter: 'Kernel Outturn Ratio (KOR)',
+        specification: '50 – 55+ LBS per 80 kg bag',
+        commercialRelevance: 'Primary determinant of processing yield and whole-kernel recovery in factory processing.'
+      },
+      {
+        parameter: 'Nut Count',
+        specification: '160 – 180 nuts / kg (±10)',
+        commercialRelevance: 'Indicates large shell size and superior density, correlating with high recovery of W180, W210, and W240 whole kernels.'
+      },
+      {
+        parameter: 'Moisture Level',
+        specification: '8.0% – 10.0% max (strictly sun-dried)',
+        commercialRelevance: 'Crucial for preserving kernel freshness and preventing fungal contamination or mold during sea voyages.'
+      },
+      {
+        parameter: 'Defective / Void Nuts',
+        specification: 'Under 8.0% maximum',
+        commercialRelevance: 'Minimizes processing waste, cutting losses, and sorting labor at shelling plants.'
+      },
+      {
+        parameter: 'Foreign Matter',
+        specification: 'Under 0.5% maximum',
+        commercialRelevance: 'Guarantees clean, mechanically gravity-screened cargo free from stones, sand, or debris.'
+      },
+      {
+        parameter: 'Standard Packaging',
+        specification: '80 kg heavy-duty new jute bags',
+        commercialRelevance: 'Allows natural breathability and withstands vertical stowing stress in maritime shipping containers.'
+      },
+      {
+        parameter: 'Container Payload',
+        specification: '27.0 – 28.0 MT per 40ft High Cube FCL',
+        commercialRelevance: 'Optimizes ocean freight costs per metric ton while remaining compliant with destination port axle weight limits.'
+      }
+    ],
+    faqs: [
+      {
+        question: 'What is the typical outturn ratio (KOR) for Tanzanian Raw Cashew Nuts?',
+        answer: 'Tanzanian RCN is renowned as among the highest-yielding cashews in the world. Southern crop lots from Mtwara, Masasi, and Newala regularly achieve outturn ratios of 50 to 55 LBS+ per 80 kg bag, compared to West African averages that typically range between 44 and 49 LBS.'
+      },
+      {
+        question: 'When is the best procurement window to secure Tanzanian cashew allocations?',
+        answer: 'Procurement planning should begin in August and September. Primary harvesting commences in October, and Cashew Nut Board of Tanzania (CBT) warehouse receipt auctions run actively from late October through January. Contracting early ensures priority vessel space before holiday congestion.'
+      },
+      {
+        question: 'Why is Mtwara Port preferred over Dar es Salaam for cashew shipments?',
+        answer: 'Mtwara Port is positioned directly adjacent to southern Tanzania’s largest cashew-growing belts. Cargo moves from regional aggregation warehouses directly to the port terminal without the 500+ km road haul to Dar es Salaam. Furthermore, direct feeder and mainline vessels call at Mtwara, reducing ocean transit times to India (Tuticorin, Mangalore) and Vietnam (Ho Chi Minh City).'
+      },
+      {
+        question: 'What documentation is required to clear Tanzanian cashews at destination ports?',
+        answer: 'Standard export documentation includes: Commercial Invoice, Packing List, Full Set Clean on Board Ocean Bills of Lading (B/L), Certificate of Origin issued by TCCIA, Phytosanitary Certificate issued by the Ministry of Agriculture, Fumigation Certificate, and Independent Inspection Certificate (outturn, nut count, moisture, and weight verification).'
+      },
+      {
+        question: 'What is the Minimum Order Quantity (MOQ) for international buyers?',
+        answer: 'Commercial shipments are standardized for full container load (FCL) maritime transport. Our standard MOQ is 2 × 40ft High Cube containers, representing approximately 54 to 56 metric tons of export-grade raw cashew nuts.'
+      }
+    ],
+    content: `## Overview of Tanzania's Raw Cashew Nut Sector
+
+Tanzania ranks among Africa's premier producers and global exporters of Raw Cashew Nuts (RCN). International buyers from India, Vietnam, and the Middle East hold Tanzanian cashews in high esteem because of their consistently large nut dimensions, high kernel outturn ratios (KOR), and sweet, natural flavor profile. 
+
+The Tanzanian cashew industry is tightly regulated by the Cashew Nut Board of Tanzania (CBT) in coordination with Agricultural Marketing Co-operative Societies (AMCOS) and the Tanzania Mercantile Exchange (TMX). This structured regulatory framework guarantees origin traceability, fair farm-gate compensation, and standardized grading across all regional primary aggregation warehouses.
+
+For procurement executives and factory owners, sourcing Tanzanian RCN offers distinct commercial advantages:
+- Higher yield of premium whole white kernels (W180, W210, W240, and W320) upon shelling.
+- Predictable moisture control due to extensive sun-drying on clean tarpaulins in coastal sunshine.
+- Strategic coastal logistics via Mtwara Port, providing direct maritime corridors to major global processing hubs.
+
+---
+
+## Major Cashew-Growing Regions in Tanzania
+
+More than 80% of Tanzania's national cashew harvest originates in the fertile southern coastal and plateau zones. The primary production belts include:
+
+### 1. Mtwara & Masasi
+The heartland of Tanzanian cashew production. Mtwara's sandy loam soil, tropical coastal humidity, and distinct dry maturation season produce dense, thick-shelled cashews with nut counts frequently averaging 160–175 per kilogram and outturn values between 52 and 55 LBS+.
+
+### 2. Newala & Tandahimba (Makonde Plateau)
+Elevated between 600 and 900 meters above sea level, the Makonde Plateau benefits from cooler night temperatures and deep red loam soil. Cashew trees here produce exceptionally uniform nuts with high oil content and bright, ivory kernels preferred by premium snack brands.
+
+### 3. Lindi & Nachingwea
+Neighboring the Mtwara belt, Lindi's cashew plantations produce significant volume, with consistent 50–52 LBS outturn. Harvesting here often begins slightly earlier in late September.
+
+### 4. Ruvuma (Tunduru District)
+Located further inland along the Mozambican border, Tunduru has expanded rapidly in recent years, contributing high-grade organic cashews characterized by robust shell integrity and low moisture retention.
+
+---
+
+## Understanding Raw Cashew Nut Specifications
+
+Commercial valuation of RCN contracts relies on four fundamental technical benchmarks:
+
+### Outturn Ratio and Kernel Recovery
+The Kernel Outturn Ratio (KOR) measures the weight of usable, defect-free cashew kernels obtained from an 80 kg bag of raw nuts, expressed in pounds (LBS). Tanzanian crop lots are globally renowned for yielding:
+- **Standard Export Grade:** 48 – 50 LBS
+- **Premium Southern Harvest:** 52 – 55+ LBS
+
+A cutting test performed on representative 1 kg samples determines the proportion of sound kernels, spotted kernels, and rejects. Every single pound increase in outturn directly boosts the processor's net recovery and factory margins.
+
+### Nut Count and Size
+Nut count indicates the number of individual raw cashews per kilogram:
+- **Large / Jumbo:** 150 – 170 nuts/kg
+- **Standard Medium:** 175 – 190 nuts/kg
+- **Small:** 195+ nuts/kg
+
+Tanzanian cashews predominantly fall in the 160–180 range, signaling large kernel size and higher percentages of whole kernels versus splits or pieces during mechanical decortication.
+
+### Moisture Content and Foreign Matter
+Moisture control is paramount for international maritime shipping:
+- **Maximum Moisture Benchmark:** Strictly below 10.0%, with standard target between 8.0% and 9.0%.
+- **Foreign Matter Threshold:** Capped below 0.5% through mechanical screening and gravity dedusting.
+
+Excess moisture during multi-week ocean transport triggers heat generation, fungal mold, and elevated free fatty acids (FFA), causing kernel yellowing and rancidity.
+
+### Quality Inspection and Sampling
+Before cargo leaves the aggregation warehouse, professional third-party inspectors draw composite samples in accordance with international standards. Cutting tests verify kernel soundness, void rates, and moisture equilibrium before sealing containers.
+
+---
+
+## Harvest Season, Availability and Procurement Planning
+
+Understanding the Tanzanian agricultural calendar is essential for timing contracts:
+
+| Phase | Months | Operational Focus |
+|:---|:---|:---|
+| **Flowering & Fruit Setting** | July – September | Monitoring weather patterns, rain distribution, and tree blossom health. |
+| **Primary Harvest Window** | October – December | Peak harvesting across southern belts; nuts drop naturally, collected and sun-dried daily. |
+| **CBT Auction Cycles** | Late October – January | Cooperative warehouse receipt auctions open; primary lot allocations and quality grading. |
+| **Peak Shipping Window** | November – February | Container stuffing at Mtwara Port; direct ocean sailings to Indian and Vietnamese ports. |
+
+Early procurement planning enables buyers to lock in preferred lots with verified outturns before competition intensifies during the late-season auctions.
+
+---
+
+## Packaging, Storage and Shipment Preparation
+
+To preserve quality during equatorial ocean voyages, Lush Trade Corp adheres to rigorous packaging standards:
+- **Bags:** New, heavy-duty 80 kg natural jute bags stitched with double twine. Jute allows natural air circulation while preventing condensation sweat inside the container.
+- **Container Stowing:** 40ft High Cube containers are cleaned, odor-tested, and lined with heavy corrugated kraft paper.
+- **Moisture Traps:** Calcium chloride desiccant bags are suspended inside container walls to absorb residual humidity during maritime passage.
+- **Payload:** Stuffed to 27.0 – 28.0 metric tons (approx. 338 – 350 bags per 40ft HC), maximizing container volume efficiency.
+
+---
+
+## Export Documentation and Logistics
+
+Smooth customs clearance at destination ports depends on accurate, verifiable documentation. Each consignment is accompanied by:
+1. **Commercial Invoice & Detailed Packing List** with bag serial tallies and gross/tare/net weights.
+2. **Full Set 3/3 Original Clean on Board Ocean Bills of Lading (B/L)** issued by reputable container lines.
+3. **Certificate of Origin** issued by the Tanzania Chamber of Commerce, Industry and Agriculture (TCCIA).
+4. **Phytosanitary Certificate** issued by the Plant Health Services of the Tanzanian Ministry of Agriculture.
+5. **Fumigation & Pest Control Certificate** validating methyl bromide or phosphine treatment.
+6. **Certificate of Quality and Weight** issued by independent inspection agencies confirming outturn, nut count, moisture, and total sound kernel recovery.
+
+---
+
+## Questions Buyers Should Ask Before Placing an Order
+
+Before finalizing a contract with any cashew exporter, wholesale buyers should verify:
+1. **What is the certified outturn guarantee (KOR) in the contract?** (Ensure clear rejection or adjustment clauses for lots falling below agreed LBS).
+2. **What is the maximum allowed moisture limit at loading?** (Insist on under 10.0%).
+3. **Which port will handle vessel departure?** (Mtwara Port offers significant transit savings compared to overland trucking to Dar es Salaam).
+4. **Who conducts the pre-shipment cutting test and inspection?** (Look for recognized third-party agencies).
+5. **Is the exporter fully licensed with the Cashew Nut Board of Tanzania (CBT)?** (Protects against compliance delays and export customs holds).
+
+---
+
+## Working With a Tanzanian Raw Cashew Nut Supplier
+
+Lush Trade Corp Tanzania Limited operates directly on the ground in Mtwara and Masasi. Our presence in the southern heartland allows us to oversee aggregation from primary cooperative warehouses, enforce strict moisture verification on every lot, and coordinate seamless container stuffing at Mtwara Port.
+
+We partner with international commodity trading houses, food processors, and wholesale nut distributors across India, Vietnam, Europe, and the Middle East, delivering dependable allocations backed by transparent trade practices and complete export documentation.
+
+---
+
+## Request Raw Cashew Nut Specifications or a Quotation
+
+Are you planning procurement for the upcoming cashew season? Contact our Mtwara commodity desk to request certified specifications, current outturn reports, container availability, and FOB / CIF quotation terms tailored to your destination port.`
+  },
   {
     id: 'cashew-season-2025',
     slug: 'tanzania-cashew-season-2025-buyer-guide',

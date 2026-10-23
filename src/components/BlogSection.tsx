@@ -93,11 +93,12 @@ export default function BlogSection() {
           <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-2.5 sm:gap-3 w-full md:w-auto">
             <div className="flex items-center space-x-2 text-[11px] sm:text-xs font-bold text-brand-dark">
               <Layers className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-brand-gold shrink-0" />
-              <span>View More Blogs:</span>
+              <span>Filter Intelligence:</span>
             </div>
             
             <div className="flex flex-wrap sm:flex-nowrap gap-2 w-full sm:w-auto">
               <div className="relative flex-1 sm:flex-initial">
+                <label htmlFor="blog-count-dropdown" className="sr-only">Select number of reports</label>
                 <select
                   id="blog-count-dropdown"
                   value={visibleCount >= filteredPosts.length ? 'all' : visibleCount}
@@ -109,19 +110,19 @@ export default function BlogSection() {
                     }
                   }}
                   className="w-full appearance-none pl-3 pr-8 py-2 rounded-xl bg-white border border-slate-300 text-xs font-bold text-brand-dark shadow-sm hover:border-brand-gold focus:outline-none focus:ring-2 focus:ring-brand-gold/30 cursor-pointer transition-all"
-                  aria-label="Select number of blogs to display"
                 >
-                  <option value={4}>4 Blogs (Default)</option>
-                  <option value={8}>8 Blogs</option>
-                  <option value={12}>12 Blogs</option>
-                  <option value={16}>16 Blogs</option>
-                  <option value="all">All 20 Blogs ({filteredPosts.length} total)</option>
+                  <option value={4}>4 Reports (Default)</option>
+                  <option value={8}>8 Reports</option>
+                  <option value={12}>12 Reports</option>
+                  <option value={16}>16 Reports</option>
+                  <option value="all">All {filteredPosts.length} Reports</option>
                 </select>
                 <ChevronDown className="w-3.5 h-3.5 text-slate-500 absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
               </div>
 
               {/* Category Filter Dropdown */}
               <div className="relative flex-1 sm:flex-initial">
+                <label htmlFor="category-dropdown" className="sr-only">Filter by commodity category</label>
                 <select
                   id="category-dropdown"
                   value={selectedCategory}
@@ -130,11 +131,10 @@ export default function BlogSection() {
                     setVisibleCount(4);
                   }}
                   className="w-full appearance-none pl-3 pr-8 py-2 rounded-xl bg-white border border-slate-300 text-xs font-semibold text-slate-700 shadow-sm hover:border-brand-gold focus:outline-none focus:ring-2 focus:ring-brand-gold/30 cursor-pointer transition-all truncate"
-                  aria-label="Filter blogs by category"
                 >
                   {BLOG_CATEGORIES.map((cat) => (
                     <option key={cat} value={cat}>
-                      {cat === 'All' ? 'All Categories' : cat}
+                      {cat === 'All' ? 'All Commodities' : cat}
                     </option>
                   ))}
                 </select>
@@ -143,33 +143,15 @@ export default function BlogSection() {
             </div>
           </div>
 
-          {/* 2. Dropdown: Jump directly to any of the 20+ articles */}
+          {/* Direct link to dedicated Archive */}
           <div className="flex items-center space-x-2 w-full md:w-auto justify-end">
-            <span className="text-[11px] sm:text-xs font-bold text-brand-dark hidden sm:inline whitespace-nowrap">
-              Jump to Report:
-            </span>
-            <div className="relative w-full sm:w-64">
-              <select
-                defaultValue=""
-                onChange={(e) => {
-                  const post = BLOG_POSTS.find((p) => p.id === e.target.value);
-                  if (post) setSelectedPost(post);
-                  e.target.value = '';
-                }}
-                className="w-full appearance-none pl-3 pr-8 py-2 rounded-xl bg-brand-dark text-brand-gold border border-brand-gold/40 text-xs font-bold shadow-sm hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-brand-gold/40 cursor-pointer truncate transition-all"
-                aria-label="Jump directly to any blog article"
-              >
-                <option value="" disabled className="bg-white text-slate-800">
-                  ⚡ Open Any Report ▾
-                </option>
-                {BLOG_POSTS.map((p, idx) => (
-                  <option key={p.id} value={p.id} className="bg-white text-slate-800 py-1">
-                    {idx + 1}. [{p.category}] {p.title}
-                  </option>
-                ))}
-              </select>
-              <ChevronDown className="w-3.5 h-3.5 text-brand-gold absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
-            </div>
+            <Link
+              href="/blog"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-brand-dark text-brand-gold hover:bg-slate-900 text-xs font-bold transition-all shadow-sm border border-brand-gold/30"
+            >
+              <span>Explore Full Archive ({BLOG_POSTS.length})</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
           </div>
 
         </div>
@@ -186,8 +168,7 @@ export default function BlogSection() {
               <TiltCard
                 max={4}
                 glare={true}
-                className="bg-brand-cream rounded-2xl p-5 sm:p-7 lg:p-8 border border-slate-200/80 hover:border-brand-coral/50 shadow-sm hover:shadow-card-hover h-full flex flex-col justify-between group cursor-pointer transition-all duration-300"
-                onClick={() => setSelectedPost(post)}
+                className="bg-brand-cream rounded-2xl p-5 sm:p-7 lg:p-8 border border-slate-200/80 hover:border-brand-coral/50 shadow-sm hover:shadow-card-hover h-full flex flex-col justify-between group transition-all duration-300"
               >
                 <div className="space-y-3 sm:space-y-4">
                   <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-slate-400">
@@ -207,7 +188,9 @@ export default function BlogSection() {
                   </div>
 
                   <h3 className="text-lg sm:text-xl font-bold text-brand-dark group-hover:text-brand-coral transition-colors line-clamp-2 leading-snug">
-                    {post.title}
+                    <Link href={`/blog/${post.slug}`}>
+                      {post.title}
+                    </Link>
                   </h3>
 
                   <p className="text-slate-600 text-xs sm:text-sm leading-relaxed line-clamp-3">
@@ -224,10 +207,13 @@ export default function BlogSection() {
                 </div>
 
                 <div className="pt-4 mt-4 sm:pt-6 sm:mt-6 border-t border-slate-200/60 flex items-center justify-between">
-                  <span className="inline-flex items-center text-xs font-bold text-brand-coral group-hover:text-brand-gold transition-colors">
+                  <Link
+                    href={`/blog/${post.slug}`}
+                    className="inline-flex items-center text-xs font-bold text-brand-coral group-hover:text-brand-gold transition-colors"
+                  >
                     <span>Read Full Article</span>
                     <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 ml-1.5 group-hover:translate-x-1 transition-transform" />
-                  </span>
+                  </Link>
 
                   <span className="text-[10px] sm:text-[11px] font-medium text-slate-500">
                     By {post.author.replace('Lush Trade Corp ', '')}
@@ -239,30 +225,31 @@ export default function BlogSection() {
         </div>
 
         {/* In-Section "View More" Controls Button Strip */}
-        {hasMore && (
-          <div className="text-center pt-8 sm:pt-10 space-y-3">
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 w-full max-w-lg mx-auto">
+        <div className="text-center pt-8 sm:pt-10 space-y-3">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 w-full max-w-xl mx-auto">
+            {hasMore && (
               <button
                 onClick={() => setVisibleCount((prev) => Math.min(prev + 4, filteredPosts.length))}
-                className="w-full sm:w-auto inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-3.5 rounded-2xl font-bold text-white bg-gradient-to-r from-brand-coral via-brand-orange to-brand-gold shadow-[0_4px_25px_rgba(253,80,20,0.35)] hover:shadow-[0_6px_30px_rgba(253,80,20,0.5)] hover:scale-105 active:scale-95 transition-all text-xs sm:text-sm group cursor-pointer"
+                className="w-full sm:w-auto inline-flex items-center justify-center px-6 sm:px-7 py-3 rounded-2xl font-bold text-slate-700 bg-brand-cream border border-slate-300 hover:border-brand-gold hover:bg-white transition-all text-xs sm:text-sm cursor-pointer shadow-xs"
               >
-                <span>View +4 More ({remainingCount} Available)</span>
-                <ChevronDown className="w-4 h-4 ml-2 group-hover:translate-y-0.5 transition-transform" />
+                <span>Show +4 More ({remainingCount} Left)</span>
+                <ChevronDown className="w-4 h-4 ml-2" />
               </button>
+            )}
 
-              <button
-                onClick={() => setVisibleCount(filteredPosts.length)}
-                className="w-full sm:w-auto px-5 sm:px-6 py-3 sm:py-3.5 rounded-2xl font-semibold text-xs text-slate-700 bg-brand-cream border border-slate-300 hover:border-brand-gold hover:bg-white transition-all shadow-sm cursor-pointer"
-              >
-                Display All {filteredPosts.length} Blogs
-              </button>
-            </div>
-            
-            <p className="text-[11px] sm:text-xs text-slate-400">
-              Showing {visiblePosts.length} of {filteredPosts.length} articles directly in this section.
-            </p>
+            <Link
+              href="/blog"
+              className="w-full sm:w-auto inline-flex items-center justify-center px-7 sm:px-8 py-3.5 rounded-2xl font-bold text-white bg-gradient-to-r from-brand-coral via-brand-orange to-brand-gold shadow-[0_4px_25px_rgba(253,80,20,0.35)] hover:shadow-[0_6px_30px_rgba(253,80,20,0.5)] hover:scale-105 active:scale-95 transition-all text-xs sm:text-sm group cursor-pointer"
+            >
+              <span>Browse All {BLOG_POSTS.length} Market Reports</span>
+              <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+            </Link>
           </div>
-        )}
+            
+          <p className="text-[11px] sm:text-xs text-slate-400">
+            Showing {visiblePosts.length} of {filteredPosts.length} articles directly in this section.
+          </p>
+        </div>
 
       </div>
 
