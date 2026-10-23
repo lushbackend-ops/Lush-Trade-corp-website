@@ -26,6 +26,16 @@ export default function BlogArchiveClient({ posts }: BlogArchiveClientProps) {
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [visibleCount, setVisibleCount] = useState<number>(9);
 
+  // Synchronize smooth scroll with dynamic DOM height
+  React.useEffect(() => {
+    const lenis = (window as unknown as { lenis?: { resize: () => void } }).lenis;
+    if (lenis && typeof lenis.resize === 'function') {
+      requestAnimationFrame(() => {
+        lenis.resize();
+      });
+    }
+  }, [visibleCount, selectedCategory, searchQuery]);
+
   // Featured post is the first article (the comprehensive flagship guide)
   const featuredPost = posts[0];
   const otherPosts = posts.slice(1);

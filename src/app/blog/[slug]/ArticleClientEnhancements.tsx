@@ -151,32 +151,65 @@ export function TableOfContents({
 }: {
   headings: { id: string; text: string; level: number }[];
 }) {
+  const [isOpen, setIsOpen] = useState(true);
+
   if (!headings || headings.length === 0) return null;
+
+  const handleJump = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    e.preventDefault();
+    const element = document.getElementById(id);
+    if (element) {
+      const lenis = (window as unknown as { lenis?: { scrollTo: (target: HTMLElement, opts: any) => void; resize: () => void } }).lenis;
+      if (lenis && typeof lenis.scrollTo === 'function') {
+        lenis.resize();
+        lenis.scrollTo(element, { offset: -90, duration: 1.0 });
+      } else {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+      // Update browser URL hash without jump
+      window.history.replaceState(null, '', `#${id}`);
+    }
+  };
 
   return (
     <nav
       aria-label="Table of contents"
-      className="p-5 sm:p-6 rounded-2xl bg-white border border-slate-200 shadow-xs mb-8"
+      className="p-4 sm:p-6 rounded-2xl bg-white border border-slate-200 shadow-xs mb-8 transition-all"
     >
-      <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">
-        In This Report:
-      </h3>
-      <ol className="space-y-2 text-xs sm:text-sm">
-        {headings.map((h, i) => (
-          <li
-            key={i}
-            style={{ paddingLeft: h.level === 3 ? '1rem' : '0rem' }}
-          >
-            <a
-              href={`#${h.id}`}
-              className="text-slate-600 hover:text-brand-coral font-medium transition-colors block py-0.5"
+      <button
+        type="button"
+        onClick={() => setIsOpen(!isOpen)}
+        className="w-full flex items-center justify-between text-left focus:outline-none cursor-pointer"
+        aria-expanded={isOpen}
+      >
+        <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">
+          In This Report ({headings.length} Sections)
+        </span>
+        <span className="text-xs text-brand-coral font-bold flex items-center gap-1">
+          <span>{isOpen ? 'Hide' : 'Show Table of Contents'}</span>
+          {isOpen ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+        </span>
+      </button>
+
+      {isOpen && (
+        <ol className="space-y-1.5 text-xs sm:text-sm mt-3 pt-3 border-t border-slate-100 max-h-[60vh] overflow-y-auto">
+          {headings.map((h, i) => (
+            <li
+              key={i}
+              style={{ paddingLeft: h.level === 3 ? '1rem' : '0rem' }}
             >
-              {h.level === 3 ? '↳ ' : `${i + 1}. `}
-              {h.text}
-            </a>
-          </li>
-        ))}
-      </ol>
+              <a
+                href={`#${h.id}`}
+                onClick={(e) => handleJump(e, h.id)}
+                className="text-slate-600 hover:text-brand-coral font-medium transition-colors block py-1 touch-manipulation"
+              >
+                {h.level === 3 ? '↳ ' : `${i + 1}. `}
+                {h.text}
+              </a>
+            </li>
+          ))}
+        </ol>
+      )}
     </nav>
   );
 }

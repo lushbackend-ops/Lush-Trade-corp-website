@@ -35,27 +35,37 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
       }
     }
 
-    // Initialize Lenis for world-class luxury momentum scrolling
+    // Initialize Lenis for smooth momentum scrolling with native touch support
     const lenis = new Lenis({
-      duration: 1.05,
+      duration: 1.0,
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Exponential easeOut
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
       wheelMultiplier: 1.0,
-      touchMultiplier: 1.2,
+      touchMultiplier: 1.0,
+      syncTouch: false, // Allow fluid, native momentum scrolling on mobile touch screens
       infinite: false,
     });
 
-    // Make lenis globally accessible if needed
+    // Make lenis globally accessible
     (window as unknown as { lenis?: Lenis }).lenis = lenis;
+
+    // Automatically keep Lenis in sync with DOM height changes (dynamic blogs, accordions, filters)
+    const resizeObserver = new ResizeObserver(() => {
+      lenis.resize();
+    });
+    if (typeof document !== 'undefined' && document.body) {
+      resizeObserver.observe(document.body);
+    }
 
     let hashTimer: ReturnType<typeof setTimeout> | undefined;
     if (window.location.hash) {
       hashTimer = setTimeout(() => {
         const target = document.querySelector(window.location.hash);
         if (target) {
-          lenis.scrollTo(target as HTMLElement, { offset: -72, duration: 1.1 });
+          lenis.resize();
+          lenis.scrollTo(target as HTMLElement, { offset: -85, duration: 1.0 });
         }
       }, 150);
     } else {
@@ -69,13 +79,13 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
     }
     rafId = requestAnimationFrame(raf);
 
-    // Reset scroll position to top on beforeunload as well
+    // Reset scroll position to top on beforeunload
     const handleBeforeUnload = () => {
       window.scrollTo(0, 0);
     };
     window.addEventListener('beforeunload', handleBeforeUnload);
 
-    // Smooth anchor navigation (#about, /#about, #products, #contact, etc.)
+    // Smooth anchor navigation (#about, /#about, #products, #blog, #contact, etc.)
     const handleAnchorClick = (e: MouseEvent) => {
       const target = (e.target as HTMLElement).closest('a');
       if (!target) return;
@@ -88,9 +98,10 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
         const element = document.querySelector(href);
         if (element) {
           e.preventDefault();
+          lenis.resize();
           lenis.scrollTo(element as HTMLElement, {
-            offset: -72,
-            duration: 1.3,
+            offset: -85,
+            duration: 1.0,
             easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
           });
         }
@@ -102,6 +113,7 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
     return () => {
       if (hashTimer) clearTimeout(hashTimer);
       cancelAnimationFrame(rafId);
+      resizeObserver.disconnect();
       document.removeEventListener('click', handleAnchorClick);
       window.removeEventListener('beforeunload', handleBeforeUnload);
       lenis.destroy();
